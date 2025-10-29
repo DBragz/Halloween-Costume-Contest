@@ -212,7 +212,8 @@ The application uses a Halloween-themed color palette:
 
 ## Authors
 
-This project was created with assistance from Replit Agent.
+- [Daniel Ribeirinha-Braga](https://github.com/DBragz)
+- [Editor](https://github.com/replit) - AI Code Assistant
 
 ---
 
