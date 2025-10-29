@@ -6,14 +6,14 @@ export default function WelcomeScreen() {
       <div className="max-w-2xl w-full text-center space-y-12">
         <div className="space-y-6">
           <div className="inline-block">
-            <h1 className="font-display font-bold text-6xl md:text-7xl text-white mb-2">
+            <h1 className="font-display font-bold text-6xl md:text-7xl text-foreground text-glow-purple mb-2">
               Halloween
             </h1>
-            <h1 className="font-display font-bold text-6xl md:text-7xl text-white">
+            <h1 className="font-display font-bold text-6xl md:text-7xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent glow-purple-intense">
               Costume Contest
             </h1>
           </div>
-          <p className="text-xl text-foreground/70 font-sans max-w-lg mx-auto">
+          <p className="text-xl text-muted-foreground font-sans max-w-lg mx-auto">
             Connect your Web3 wallet to enter the contest or vote for your favorite costume
           </p>
         </div>
