@@ -139,7 +139,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       <AlertDialog open={true}>
         <AlertDialogContent className="bg-background border-2 border-chart-1 glow-purple">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
+            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3 text-chart-1">
               <Lock className="w-6 h-6 text-chart-1" />
               Admin Access Required
             </AlertDialogTitle>
@@ -164,7 +164,11 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             )}
           </div>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={handleCancelPassword} data-testid="button-cancel-password">
+            <AlertDialogCancel 
+              onClick={handleCancelPassword} 
+              className="border-2 border-chart-3 text-chart-3 hover:bg-chart-3/10"
+              data-testid="button-cancel-password"
+            >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -237,7 +241,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         </div>
 
         <div className="space-y-4 sm:space-y-6">
-          <h2 className="font-display font-semibold text-xl sm:text-2xl text-foreground">
+          <h2 className="font-display font-semibold text-xl sm:text-2xl text-chart-3">
             Admin Actions
           </h2>
 
