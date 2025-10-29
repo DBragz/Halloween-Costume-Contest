@@ -19,34 +19,34 @@ export default function ContestantCard({ id, personName, costumeName, votes, has
 
   return (
     <Card
-      className={`p-6 bg-background border-2 transition-all ${
+      className={`p-4 sm:p-6 bg-background border-2 transition-all ${
         hasVoted
           ? 'border-chart-1 glow-purple opacity-90'
           : 'border-chart-3 glow-orange hover-elevate'
       }`}
       data-testid={`card-contestant-${id}`}
     >
-      <div className="space-y-4">
-        <div className="flex items-start justify-between gap-4">
+      <div className="space-y-3 sm:space-y-4">
+        <div className="flex items-start justify-between gap-2 sm:gap-4">
           <div className="flex-1">
-            <h3 className={`font-display font-semibold text-xl ${textColor} mb-2`}>
+            <h3 className={`font-display font-semibold text-base sm:text-xl ${textColor} mb-1 sm:mb-2`}>
               {personName}
             </h3>
-            <p className={`${textColor} text-sm line-clamp-3`}>
+            <p className={`${textColor} text-xs sm:text-sm line-clamp-3`}>
               {costumeName}
             </p>
           </div>
           {hasVoted && (
-            <Badge className="bg-chart-1/20 border-chart-1 text-chart-1 glow-purple" data-testid="badge-voted">
+            <Badge className="bg-chart-1/20 border-chart-1 text-chart-1 glow-purple text-xs" data-testid="badge-voted">
               <Check className="w-3 h-3 mr-1" />
               Voted
             </Badge>
           )}
         </div>
 
-        <div className={`flex items-center justify-between pt-4 border-t ${borderColor}`}>
+        <div className={`flex items-center justify-between pt-3 sm:pt-4 border-t ${borderColor}`}>
           <div className="text-center">
-            <p className={`text-3xl font-display font-bold ${textColor} ${glowEffect}`} data-testid={`text-votes-${id}`}>
+            <p className={`text-2xl sm:text-3xl font-display font-bold ${textColor} ${glowEffect}`} data-testid={`text-votes-${id}`}>
               {votes}
             </p>
             <p className={`text-xs ${textColor}`}>Votes</p>
@@ -55,11 +55,12 @@ export default function ContestantCard({ id, personName, costumeName, votes, has
           <Button
             onClick={() => onVote(id)}
             disabled={hasVoted}
+            size="sm"
             className={`${
               hasVoted
                 ? 'bg-muted text-muted-foreground'
                 : 'bg-chart-2 hover:bg-chart-2 border-2 border-chart-2 text-black glow-blue-intense'
-            } font-display font-semibold`}
+            } font-display font-semibold text-xs sm:text-sm`}
             data-testid={`button-vote-${id}`}
           >
             {hasVoted ? 'Already Voted' : 'Vote'}

@@ -178,9 +178,9 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
           <Button
             variant="ghost"
             onClick={onBack}
@@ -190,64 +190,64 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h1 className="font-display font-bold text-4xl text-chart-1">
+          <h1 className="font-display font-bold text-2xl sm:text-4xl text-chart-1">
             Admin Panel
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 mb-8">
-          <Card className="p-6 bg-background border-2 border-chart-1 glow-purple">
-            <h3 className="font-display font-semibold text-lg text-chart-1 mb-4">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-8">
+          <Card className="p-4 sm:p-6 bg-background border-2 border-chart-1 glow-purple">
+            <h3 className="font-display font-semibold text-base sm:text-lg text-chart-1 mb-3 sm:mb-4">
               Contest Statistics
             </h3>
             {isLoading ? (
-              <div className="text-center text-muted-foreground">Loading statistics...</div>
+              <div className="text-center text-muted-foreground text-sm">Loading statistics...</div>
             ) : (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
                 <div className="text-center">
-                  <p className="text-3xl font-display font-bold text-chart-1" data-testid="stat-total-votes">
+                  <p className="text-2xl sm:text-3xl font-display font-bold text-chart-1" data-testid="stat-total-votes">
                     {totalVotes}
                   </p>
-                  <p className="text-sm text-chart-1">Total Votes</p>
+                  <p className="text-xs sm:text-sm text-chart-1">Total Votes</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-display font-bold text-chart-1" data-testid="stat-total-contestants">
+                  <p className="text-2xl sm:text-3xl font-display font-bold text-chart-1" data-testid="stat-total-contestants">
                     {totalContestants}
                   </p>
-                  <p className="text-sm text-chart-1">Contestants</p>
+                  <p className="text-xs sm:text-sm text-chart-1">Contestants</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-display font-bold text-chart-1" data-testid="stat-avg-votes">
+                  <p className="text-2xl sm:text-3xl font-display font-bold text-chart-1" data-testid="stat-avg-votes">
                     {averageVotes}
                   </p>
-                  <p className="text-sm text-chart-1">Avg Votes</p>
+                  <p className="text-xs sm:text-sm text-chart-1">Avg Votes</p>
                 </div>
                 <div className="text-center">
-                  <p className="text-3xl font-display font-bold text-chart-1" data-testid="stat-highest-votes">
+                  <p className="text-2xl sm:text-3xl font-display font-bold text-chart-1" data-testid="stat-highest-votes">
                     {highestVotes}
                   </p>
-                  <p className="text-sm text-chart-1">Highest Votes</p>
+                  <p className="text-xs sm:text-sm text-chart-1">Highest Votes</p>
                 </div>
               </div>
             )}
           </Card>
         </div>
 
-        <div className="space-y-6">
-          <h2 className="font-display font-semibold text-2xl text-foreground">
+        <div className="space-y-4 sm:space-y-6">
+          <h2 className="font-display font-semibold text-xl sm:text-2xl text-foreground">
             Admin Actions
           </h2>
 
-          <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
-            <div className="flex items-start justify-between gap-6">
+          <Card className="p-4 sm:p-8 bg-background border-2 border-chart-3 glow-orange">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6">
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <RotateCcw className="w-6 h-6 text-chart-3" />
-                  <h3 className="font-display font-semibold text-xl text-chart-3">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <RotateCcw className="w-5 h-5 sm:w-6 sm:h-6 text-chart-3" />
+                  <h3 className="font-display font-semibold text-lg sm:text-xl text-chart-3">
                     Wipe All Votes
                   </h3>
                 </div>
-                <p className="text-chart-3 mb-4">
+                <p className="text-chart-3 text-sm sm:text-base mb-4">
                   Reset all vote counts to zero while keeping contestants in the system.
                   This action cannot be undone.
                 </p>
@@ -255,7 +255,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
               <Button
                 onClick={() => setShowWipeVotesDialog(true)}
                 disabled={wipeVotesMutation.isPending}
-                className="bg-chart-3 hover:bg-chart-3 border-2 border-chart-3 text-black font-display font-semibold glow-orange-intense"
+                className="bg-chart-3 hover:bg-chart-3 border-2 border-chart-3 text-black font-display font-semibold glow-orange-intense w-full sm:w-auto"
                 data-testid="button-wipe-votes"
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
@@ -264,16 +264,16 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </div>
           </Card>
 
-          <Card className="p-8 bg-background border-2 border-destructive">
-            <div className="flex items-start justify-between gap-6">
+          <Card className="p-4 sm:p-8 bg-background border-2 border-destructive">
+            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 sm:gap-6">
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <Trash2 className="w-6 h-6 text-destructive" />
-                  <h3 className="font-display font-semibold text-xl text-destructive">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <Trash2 className="w-5 h-5 sm:w-6 sm:h-6 text-destructive" />
+                  <h3 className="font-display font-semibold text-lg sm:text-xl text-destructive">
                     Delete All Contestants
                   </h3>
                 </div>
-                <p className="text-destructive mb-4">
+                <p className="text-destructive text-sm sm:text-base mb-4">
                   Permanently remove all contestants and their associated data from the system.
                   This action cannot be undone.
                 </p>
@@ -281,7 +281,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
               <Button
                 onClick={() => setShowDeleteContestantsDialog(true)}
                 disabled={deleteAllMutation.isPending}
-                className="bg-destructive hover:bg-destructive border-2 border-destructive text-destructive-foreground font-display font-semibold"
+                className="bg-destructive hover:bg-destructive border-2 border-destructive text-destructive-foreground font-display font-semibold w-full sm:w-auto"
                 data-testid="button-delete-contestants"
               >
                 <Trash2 className="w-4 h-4 mr-2" />
@@ -293,23 +293,23 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
 
         {/* Contestant List */}
         {contestants.length > 0 && (
-          <div className="mt-8">
-            <h2 className="font-display font-semibold text-2xl text-foreground mb-4">
+          <div className="mt-4 sm:mt-8">
+            <h2 className="font-display font-semibold text-xl sm:text-2xl text-foreground mb-3 sm:mb-4">
               Manage Contestants
             </h2>
-            <Card className="p-6 bg-background border-2 border-chart-2">
-              <div className="space-y-3">
+            <Card className="p-3 sm:p-6 bg-background border-2 border-chart-2">
+              <div className="space-y-2 sm:space-y-3">
                 {contestants.map((contestant) => (
                   <div
                     key={contestant.id}
-                    className="flex items-center justify-between p-4 rounded-md border border-border hover-elevate"
+                    className="flex items-center justify-between p-3 sm:p-4 rounded-md border border-border hover-elevate"
                     data-testid={`contestant-item-${contestant.id}`}
                   >
-                    <div className="flex-1">
-                      <p className="font-display font-semibold text-foreground">
+                    <div className="flex-1 min-w-0 pr-2">
+                      <p className="font-display font-semibold text-foreground text-sm sm:text-base truncate">
                         {contestant.personName}
                       </p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-xs sm:text-sm text-muted-foreground truncate">
                         {contestant.costumeName} • {contestant.votes} votes
                       </p>
                     </div>
@@ -318,10 +318,11 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
                       variant="destructive"
                       onClick={() => setDeleteContestantId(contestant.id)}
                       disabled={deleteContestantMutation.isPending}
+                      className="text-xs sm:text-sm"
                       data-testid={`button-delete-${contestant.id}`}
                     >
-                      <Trash2 className="w-4 h-4 mr-2" />
-                      Delete
+                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4 sm:mr-2" />
+                      <span className="hidden sm:inline">Delete</span>
                     </Button>
                   </div>
                 ))}

@@ -56,9 +56,9 @@ export default function ContestRegistrationForm({ onBack }: ContestRegistrationF
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-2xl mx-auto">
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-8">
           <Button
             variant="ghost"
             onClick={onBack}
@@ -70,20 +70,20 @@ export default function ContestRegistrationForm({ onBack }: ContestRegistrationF
           </Button>
         </div>
 
-        <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
-          <div className="space-y-6">
+        <Card className="p-4 sm:p-8 bg-background border-2 border-chart-3 glow-orange">
+          <div className="space-y-4 sm:space-y-6">
             <div className="text-center space-y-2">
-              <h1 className="font-display font-bold text-4xl text-chart-3 text-glow-orange">
+              <h1 className="font-display font-bold text-2xl sm:text-4xl text-chart-3 text-glow-orange">
                 Enter Contest
               </h1>
-              <p className="text-chart-3">
+              <p className="text-sm sm:text-base text-chart-3">
                 Tell us about your amazing Halloween costume
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="personName" className="text-chart-3 font-display">
+                <Label htmlFor="personName" className="text-chart-3 font-display text-sm sm:text-base">
                   Person's Name
                 </Label>
                 <Input
@@ -92,13 +92,13 @@ export default function ContestRegistrationForm({ onBack }: ContestRegistrationF
                   onChange={(e) => setPersonName(e.target.value)}
                   placeholder="Enter your name"
                   required
-                  className="bg-background border-2 border-chart-3/30 focus:border-chart-3 focus:glow-orange h-12"
+                  className="bg-background border-2 border-chart-3/30 focus:border-chart-3 focus:glow-orange h-11 sm:h-12"
                   data-testid="input-person-name"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="costumeName" className="text-chart-3 font-display">
+                <Label htmlFor="costumeName" className="text-chart-3 font-display text-sm sm:text-base">
                   Costume Design Name
                 </Label>
                 <Input
@@ -107,7 +107,7 @@ export default function ContestRegistrationForm({ onBack }: ContestRegistrationF
                   onChange={(e) => setCostumeName(e.target.value)}
                   placeholder="Enter your costume name"
                   required
-                  className="bg-background border-2 border-chart-3/30 focus:border-chart-3 focus:glow-orange h-12"
+                  className="bg-background border-2 border-chart-3/30 focus:border-chart-3 focus:glow-orange h-11 sm:h-12"
                   data-testid="input-costume-name"
                 />
               </div>
@@ -115,7 +115,7 @@ export default function ContestRegistrationForm({ onBack }: ContestRegistrationF
               <Button
                 type="submit"
                 disabled={submitMutation.isPending}
-                className="w-full bg-chart-3 hover:bg-chart-3 border-2 border-chart-3 text-black font-display font-semibold text-lg py-6 glow-orange-intense"
+                className="w-full bg-chart-3 hover:bg-chart-3 border-2 border-chart-3 text-black font-display font-semibold text-base sm:text-lg py-5 sm:py-6 glow-orange-intense"
                 data-testid="button-submit-entry"
               >
                 {submitMutation.isPending ? 'Submitting...' : 'Submit Entry'}

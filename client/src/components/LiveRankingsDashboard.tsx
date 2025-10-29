@@ -38,9 +38,9 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
           {onBack && (
             <Button
               variant="ghost"
@@ -52,7 +52,7 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
               Back
             </Button>
           )}
-          <h1 className="font-display font-bold text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
+          <h1 className="font-display font-bold text-2xl sm:text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
             LIVE RANKINGS
           </h1>
         </div>
@@ -77,39 +77,39 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           </div>
         ) : (
           <>
-            <div className="flex items-center justify-center gap-2 mb-12">
-              <div className="w-3 h-3 bg-chart-2 rounded-full animate-pulse glow-blue"></div>
-              <p className="text-sm text-muted-foreground">Live updates every 5 seconds</p>
+            <div className="flex items-center justify-center gap-2 mb-6 sm:mb-12">
+              <div className="w-2 h-2 sm:w-3 sm:h-3 bg-chart-2 rounded-full animate-pulse glow-blue"></div>
+              <p className="text-xs sm:text-sm text-muted-foreground">Live updates every 5 seconds</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-12">
           {topThree.map((contestant, index) => (
             <Card
               key={contestant.id}
-              className={`p-8 ${getPodiumColors(index)} border-2 transition-all ${
+              className={`p-4 sm:p-8 ${getPodiumColors(index)} border-2 transition-all ${
                 index === 0 ? 'md:col-span-3 lg:col-span-1' : ''
               }`}
               data-testid={`card-rank-${index + 1}`}
             >
-              <div className="text-center space-y-4">
-                <div className="inline-flex items-center justify-center w-20 h-20 bg-background/50 border-2 rounded-full">
+              <div className="text-center space-y-3 sm:space-y-4">
+                <div className="inline-flex items-center justify-center w-14 h-14 sm:w-20 sm:h-20 bg-background/50 border-2 rounded-full">
                   {getPodiumIcon(index)}
                 </div>
                 <div>
-                  <Badge className="mb-2 font-display" data-testid={`badge-position-${index + 1}`}>
+                  <Badge className="mb-2 font-display text-xs sm:text-sm" data-testid={`badge-position-${index + 1}`}>
                     {index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'} Place
                   </Badge>
-                  <h2 className="font-display font-bold text-2xl mb-2">
+                  <h2 className="font-display font-bold text-xl sm:text-2xl mb-1 sm:mb-2">
                     {contestant.personName}
                   </h2>
-                  <p className="text-sm mb-4">
+                  <p className="text-xs sm:text-sm mb-3 sm:mb-4">
                     {contestant.costumeName}
                   </p>
-                  <div className="pt-4 border-t border-current/20">
-                    <p className="text-5xl font-display font-bold" data-testid={`text-votes-rank-${index + 1}`}>
+                  <div className="pt-3 sm:pt-4 border-t border-current/20">
+                    <p className="text-3xl sm:text-5xl font-display font-bold" data-testid={`text-votes-rank-${index + 1}`}>
                       {contestant.votes}
                     </p>
-                    <p className="text-sm opacity-80">Votes</p>
+                    <p className="text-xs sm:text-sm opacity-80">Votes</p>
                   </div>
                 </div>
               </div>
@@ -118,34 +118,34 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
         </div>
 
         {remaining.length > 0 && (
-          <div className="space-y-4">
-            <h2 className="font-display font-semibold text-2xl text-foreground mb-6">
+          <div className="space-y-3 sm:space-y-4">
+            <h2 className="font-display font-semibold text-xl sm:text-2xl text-foreground mb-4 sm:mb-6">
               Other Contestants
             </h2>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {remaining.map((contestant, index) => (
                 <Card
                   key={contestant.id}
-                  className="p-6 bg-background border-2 border-chart-1 glow-purple flex items-center justify-between hover-elevate"
+                  className="p-3 sm:p-6 bg-background border-2 border-chart-1 glow-purple flex items-center justify-between hover-elevate"
                   data-testid={`card-contestant-${contestant.id}`}
                 >
-                  <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-chart-1/20 border-2 border-chart-1 rounded-full flex items-center justify-center">
-                      <span className="font-display font-bold text-xl text-chart-1">
+                  <div className="flex items-center gap-3 sm:gap-6">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-chart-1/20 border-2 border-chart-1 rounded-full flex items-center justify-center">
+                      <span className="font-display font-bold text-base sm:text-xl text-chart-1">
                         {index + 4}
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-display font-semibold text-lg text-chart-1">
+                      <h3 className="font-display font-semibold text-base sm:text-lg text-chart-1">
                         {contestant.personName}
                       </h3>
-                      <p className="text-sm text-chart-1">
+                      <p className="text-xs sm:text-sm text-chart-1">
                         {contestant.costumeName}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-3xl font-display font-bold text-chart-1" data-testid={`text-votes-${contestant.id}`}>
+                    <p className="text-2xl sm:text-3xl font-display font-bold text-chart-1" data-testid={`text-votes-${contestant.id}`}>
                       {contestant.votes}
                     </p>
                     <p className="text-xs text-chart-1">Votes</p>

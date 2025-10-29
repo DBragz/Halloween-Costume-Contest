@@ -48,9 +48,9 @@ export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingSc
   };
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-background p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center gap-4 mb-8">
+        <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
           <Button
             variant="ghost"
             onClick={onBack}
@@ -60,14 +60,14 @@ export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingSc
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h1 className="font-display font-bold text-4xl text-chart-2">
+          <h1 className="font-display font-bold text-2xl sm:text-4xl text-chart-2">
             Vote for Contestants
           </h1>
         </div>
 
         {votedFor && (
-          <div className="mb-6 p-4 bg-chart-1/10 border-2 border-chart-1 rounded-md glow-purple text-center">
-            <p className="text-chart-1 font-display font-semibold">
+          <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-chart-1/10 border-2 border-chart-1 rounded-md glow-purple text-center">
+            <p className="text-chart-1 font-display font-semibold text-sm sm:text-base">
               Thank you for voting! Your vote has been recorded.
             </p>
           </div>
@@ -92,7 +92,7 @@ export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingSc
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {contestants.map((contestant) => (
               <ContestantCard
                 key={contestant.id}
