@@ -12,11 +12,11 @@ import VotingScreen from "@/components/VotingScreen";
 import LiveRankingsDashboard from "@/components/LiveRankingsDashboard";
 import AdminPanel from "@/components/AdminPanel";
 import { Button } from "@/components/ui/button";
-import { Trophy, UserCog } from "lucide-react";
+import { Trophy, UserCog, LogOut } from "lucide-react";
 
 function MainApp() {
   const [, setLocation] = useLocation();
-  const { account } = useWeb3();
+  const { account, disconnectWallet } = useWeb3();
 
   if (!account) {
     return <WelcomeScreen />;
@@ -58,6 +58,15 @@ function MainApp() {
                 {account.slice(0, 6)}...{account.slice(-4)}
               </p>
             </div>
+            <Button
+              onClick={disconnectWallet}
+              variant="ghost"
+              size="icon"
+              className="hover-elevate"
+              data-testid="button-logout"
+            >
+              <LogOut className="w-4 h-4" />
+            </Button>
           </div>
         </div>
       </nav>
