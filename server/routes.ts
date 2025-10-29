@@ -24,6 +24,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.delete("/api/contestants/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteContestant(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Contestant not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      res.status(500).json({ error: error.message });
+    }
+  });
+
   app.delete("/api/contestants", async (req, res) => {
     try {
       await storage.deleteAllContestants();
