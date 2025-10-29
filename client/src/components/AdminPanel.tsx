@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Trash2, RotateCcw, Shield, ArrowLeft, AlertTriangle } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useWeb3 } from '@/contexts/Web3Context';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,7 +18,6 @@ interface AdminPanelProps {
 }
 
 export default function AdminPanel({ onBack }: AdminPanelProps) {
-  const { account } = useWeb3();
   const [showWipeVotesDialog, setShowWipeVotesDialog] = useState(false);
   const [showDeleteContestantsDialog, setShowDeleteContestantsDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -43,28 +41,19 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={onBack}
-              className="text-muted-foreground hover-elevate"
-              data-testid="button-back"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Button>
-            <h1 className="font-display font-bold text-4xl text-foreground text-glow-purple">
-              Admin Panel
-            </h1>
-          </div>
-          {account && (
-            <div className="px-4 py-2 border-2 border-chart-1 bg-chart-1/10 rounded-md glow-purple">
-              <p className="text-sm font-mono text-foreground">
-                {account.slice(0, 6)}...{account.slice(-4)}
-              </p>
-            </div>
-          )}
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="ghost"
+            onClick={onBack}
+            className="text-muted-foreground hover-elevate"
+            data-testid="button-back"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back
+          </Button>
+          <h1 className="font-display font-bold text-4xl text-foreground text-glow-purple">
+            Admin Panel
+          </h1>
         </div>
 
         <div className="grid grid-cols-1 gap-6 mb-8">

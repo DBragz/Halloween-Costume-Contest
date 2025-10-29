@@ -5,7 +5,6 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { useWeb3 } from '@/contexts/Web3Context';
 
 interface ContestRegistrationFormProps {
   onBack: () => void;
@@ -13,7 +12,6 @@ interface ContestRegistrationFormProps {
 }
 
 export default function ContestRegistrationForm({ onBack, onSubmit }: ContestRegistrationFormProps) {
-  const { account } = useWeb3();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,7 +27,7 @@ export default function ContestRegistrationForm({ onBack, onSubmit }: ContestReg
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-2xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
+        <div className="mb-8">
           <Button
             variant="ghost"
             onClick={onBack}
@@ -39,13 +37,6 @@ export default function ContestRegistrationForm({ onBack, onSubmit }: ContestReg
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          {account && (
-            <div className="px-4 py-2 border-2 border-chart-2 bg-chart-2/10 rounded-md glow-blue">
-              <p className="text-sm font-mono text-foreground">
-                {account.slice(0, 6)}...{account.slice(-4)}
-              </p>
-            </div>
-          )}
         </div>
 
         <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">

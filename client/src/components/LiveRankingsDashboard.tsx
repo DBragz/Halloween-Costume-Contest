@@ -2,7 +2,6 @@ import { Trophy, Medal, Award, ArrowLeft } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { useWeb3 } from '@/contexts/Web3Context';
 
 interface Contestant {
   id: number;
@@ -16,8 +15,6 @@ interface LiveRankingsDashboardProps {
 }
 
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
-  const { account } = useWeb3();
-
   const contestants: Contestant[] = [
     { id: 1, name: 'Vampire Lord', description: 'Classic vampire with custom fangs and flowing cape', votes: 42 },
     { id: 2, name: 'Cyberpunk Witch', description: 'Futuristic witch with LED-lit hat and neon accents', votes: 38 },
@@ -51,28 +48,19 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={onBack}
-              className="text-muted-foreground hover-elevate"
-              data-testid="button-back"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Button>
-            <h1 className="font-display font-bold text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
-              LIVE RANKINGS
-            </h1>
-          </div>
-          {account && (
-            <div className="px-4 py-2 border-2 border-chart-2 bg-chart-2/10 rounded-md glow-blue">
-              <p className="text-sm font-mono text-foreground">
-                {account.slice(0, 6)}...{account.slice(-4)}
-              </p>
-            </div>
-          )}
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="ghost"
+            onClick={onBack}
+            className="text-muted-foreground hover-elevate"
+            data-testid="button-back"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back
+          </Button>
+          <h1 className="font-display font-bold text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
+            LIVE RANKINGS
+          </h1>
         </div>
 
         <div className="flex items-center justify-center gap-2 mb-12">
