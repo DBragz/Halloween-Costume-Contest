@@ -6,23 +6,36 @@ import WalletSelectionDialog from './WalletSelectionDialog';
 import { useToast } from '@/hooks/use-toast';
 
 export default function WalletConnectButton() {
-  const { account, isConnecting, connectWallet } = useWeb3();
+  const { account, isConnecting, connectMetaMask, connectWalletConnect } = useWeb3();
   const [showWalletDialog, setShowWalletDialog] = useState(false);
   const { toast } = useToast();
 
   const handleMetaMaskSelect = async () => {
     setShowWalletDialog(false);
-    await connectWallet();
+    try {
+      await connectMetaMask();
+    } catch (error) {
+      console.error('Error connecting MetaMask:', error);
+      toast({
+        title: 'Connection Error',
+        description: 'Failed to connect MetaMask. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
-  const handleWalletConnectSelect = () => {
+  const handleWalletConnectSelect = async () => {
     setShowWalletDialog(false);
-    // TODO: Implement WalletConnect integration
-    // For production, you would initialize WalletConnect here
-    toast({
-      title: 'WalletConnect',
-      description: 'WalletConnect integration coming soon. Please use MetaMask for now.',
-    });
+    try {
+      await connectWalletConnect();
+    } catch (error) {
+      console.error('Error connecting WalletConnect:', error);
+      toast({
+        title: 'Connection Error',
+        description: 'Failed to connect WalletConnect. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   if (account) {

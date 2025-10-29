@@ -1,70 +1,52 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { BrowserProvider, JsonRpcSigner } from 'ethers';
+import { createContext, useContext, ReactNode } from 'react';
+import { useAccount, useConnect, useDisconnect } from 'wagmi';
+import { injected, walletConnect } from 'wagmi/connectors';
 
 interface Web3ContextType {
   account: string | null;
   isConnecting: boolean;
-  connectWallet: () => Promise<void>;
+  connectMetaMask: () => Promise<void>;
+  connectWalletConnect: () => Promise<void>;
   disconnectWallet: () => void;
-  signer: JsonRpcSigner | null;
 }
 
 const Web3Context = createContext<Web3ContextType | undefined>(undefined);
 
 export function Web3Provider({ children }: { children: ReactNode }) {
-  const [account, setAccount] = useState<string | null>(null);
-  const [isConnecting, setIsConnecting] = useState(false);
-  const [signer, setSigner] = useState<JsonRpcSigner | null>(null);
+  const { address, isConnecting: wagmiConnecting } = useAccount();
+  const { connectAsync, connectors, isPending } = useConnect();
+  const { disconnect } = useDisconnect();
 
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
-
-  const checkIfWalletIsConnected = async () => {
-    try {
-      if (typeof window.ethereum !== 'undefined') {
-        const provider = new BrowserProvider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        if (accounts.length > 0) {
-          const signerInstance = await provider.getSigner();
-          setAccount(accounts[0].address);
-          setSigner(signerInstance);
-        }
-      }
-    } catch (error) {
-      console.error('Error checking wallet connection:', error);
+  const connectMetaMask = async () => {
+    const injectedConnector = connectors.find((c) => c.id === 'injected');
+    if (!injectedConnector) {
+      throw new Error('MetaMask connector not available. Please install MetaMask browser extension.');
     }
+    await connectAsync({ connector: injectedConnector });
   };
 
-  const connectWallet = async () => {
-    try {
-      setIsConnecting(true);
-      if (typeof window.ethereum === 'undefined') {
-        alert('Please install MetaMask to use this application');
-        return;
-      }
-
-      const provider = new BrowserProvider(window.ethereum);
-      await provider.send('eth_requestAccounts', []);
-      const signerInstance = await provider.getSigner();
-      const address = await signerInstance.getAddress();
-      
-      setAccount(address);
-      setSigner(signerInstance);
-    } catch (error) {
-      console.error('Error connecting wallet:', error);
-    } finally {
-      setIsConnecting(false);
+  const connectWalletConnect = async () => {
+    const walletConnectConnector = connectors.find((c) => c.id === 'walletConnect');
+    if (!walletConnectConnector) {
+      throw new Error('WalletConnect connector not available.');
     }
+    await connectAsync({ connector: walletConnectConnector });
   };
 
   const disconnectWallet = () => {
-    setAccount(null);
-    setSigner(null);
+    disconnect();
   };
 
   return (
-    <Web3Context.Provider value={{ account, isConnecting, connectWallet, disconnectWallet, signer }}>
+    <Web3Context.Provider
+      value={{
+        account: address || null,
+        isConnecting: wagmiConnecting || isPending,
+        connectMetaMask,
+        connectWalletConnect,
+        disconnectWallet,
+      }}
+    >
       {children}
     </Web3Context.Provider>
   );
