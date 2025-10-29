@@ -30,7 +30,7 @@ function MainApp() {
             <div className="w-10 h-10 bg-gradient-to-br from-black to-chart-3 rounded-md flex items-center justify-center glow-orange">
               <Trophy className="w-6 h-6 text-chart-3" />
             </div>
-            <h1 className="font-display font-bold text-xl bg-gradient-to-r from-black to-chart-3 bg-clip-text text-transparent">
+            <h1 className="font-display font-bold text-xl text-chart-3">
               Halloween Costume Contest
             </h1>
           </div>
