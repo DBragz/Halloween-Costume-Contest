@@ -13,6 +13,7 @@ export interface IStorage {
   createContestant(contestant: InsertContestant): Promise<Contestant>;
   getContestants(): Promise<Contestant[]>;
   getContestant(id: string): Promise<Contestant | undefined>;
+  deleteContestant(id: string): Promise<boolean>;
   deleteAllContestants(): Promise<void>;
   wipeVotes(): Promise<void>;
   voteForContestant(id: string): Promise<Contestant | undefined>;
@@ -65,6 +66,10 @@ export class MemStorage implements IStorage {
 
   async getContestant(id: string): Promise<Contestant | undefined> {
     return this.contestants.get(id);
+  }
+
+  async deleteContestant(id: string): Promise<boolean> {
+    return this.contestants.delete(id);
   }
 
   async deleteAllContestants(): Promise<void> {
