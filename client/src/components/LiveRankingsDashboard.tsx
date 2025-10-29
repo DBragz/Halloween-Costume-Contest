@@ -1,21 +1,19 @@
 import { Trophy, Medal, Award, ArrowLeft } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-
-interface Contestant {
-  id: number;
-  name: string;
-  description: string;
-  votes: number;
-}
+import type { Contestant } from '@shared/schema';
 
 interface LiveRankingsDashboardProps {
   onBack: () => void;
 }
 
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
-  const contestants: Contestant[] = [];
+  const { data: contestants = [], isLoading } = useQuery<Contestant[]>({
+    queryKey: ['/api/contestants'],
+    refetchInterval: 5000,
+  });
 
   const sortedContestants = [...contestants].sort((a, b) => b.votes - a.votes);
   const topThree = sortedContestants.slice(0, 3);
@@ -57,7 +55,13 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           </h1>
         </div>
 
-        {contestants.length === 0 ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              Loading rankings...
+            </p>
+          </div>
+        ) : contestants.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
               No contestants or votes yet. Enter the contest or start voting!
@@ -88,10 +92,10 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
                     {index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'} Place
                   </Badge>
                   <h2 className="font-display font-bold text-2xl mb-2">
-                    {contestant.name}
+                    {contestant.personName}
                   </h2>
                   <p className="text-sm mb-4">
-                    {contestant.description}
+                    {contestant.costumeName}
                   </p>
                   <div className="pt-4 border-t border-current/20">
                     <p className="text-5xl font-display font-bold" data-testid={`text-votes-rank-${index + 1}`}>
@@ -125,10 +129,10 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
                     </div>
                     <div>
                       <h3 className="font-display font-semibold text-lg text-chart-1">
-                        {contestant.name}
+                        {contestant.personName}
                       </h3>
                       <p className="text-sm text-chart-1">
-                        {contestant.description}
+                        {contestant.costumeName}
                       </p>
                     </div>
                   </div>
