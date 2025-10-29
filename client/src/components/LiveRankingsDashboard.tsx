@@ -84,7 +84,7 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           {topThree.map((contestant, index) => (
             <Card
               key={contestant.id}
-              className={`p-8 ${getPodiumColors(index)} border-2 transition-all ${
+              className={`p-8 bg-black ${getPodiumColors(index)} border-2 transition-all ${
                 index === 0 ? 'md:col-span-3 lg:col-span-1' : ''
               }`}
               data-testid={`card-rank-${index + 1}`}
@@ -124,29 +124,29 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
               {remaining.map((contestant, index) => (
                 <Card
                   key={contestant.id}
-                  className="p-6 bg-background border-2 border-chart-1 glow-purple flex items-center justify-between hover-elevate"
+                  className="p-6 bg-black border-2 border-chart-3 glow-orange flex items-center justify-between hover-elevate"
                   data-testid={`card-contestant-${contestant.id}`}
                 >
                   <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-chart-1/20 border-2 border-chart-1 rounded-full flex items-center justify-center">
-                      <span className="font-display font-bold text-xl text-chart-1">
+                    <div className="w-12 h-12 bg-chart-3/20 border-2 border-chart-3 rounded-full flex items-center justify-center">
+                      <span className="font-display font-bold text-xl text-chart-3">
                         {index + 4}
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-display font-semibold text-lg text-chart-1">
+                      <h3 className="font-display font-semibold text-lg text-chart-3">
                         {contestant.name}
                       </h3>
-                      <p className="text-sm text-chart-1">
+                      <p className="text-sm text-chart-3">
                         {contestant.description}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-3xl font-display font-bold text-chart-1" data-testid={`text-votes-${contestant.id}`}>
+                    <p className="text-3xl font-display font-bold text-chart-3" data-testid={`text-votes-${contestant.id}`}>
                       {contestant.votes}
                     </p>
-                    <p className="text-xs text-chart-1">Votes</p>
+                    <p className="text-xs text-chart-3">Votes</p>
                   </div>
                 </Card>
               ))}

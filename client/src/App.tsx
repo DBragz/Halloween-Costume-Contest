@@ -24,14 +24,14 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b-2 border-chart-3/30 bg-background sticky top-0 z-50">
+      <nav className="border-b border-chart-3/30 bg-black sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-chart-1 to-chart-3 rounded-md flex items-center justify-center glow-purple">
-              <Trophy className="w-6 h-6 text-background" />
+            <div className="w-10 h-10 bg-gradient-to-br from-black to-chart-3 rounded-md flex items-center justify-center glow-orange">
+              <Trophy className="w-6 h-6 text-chart-3" />
             </div>
-            <h1 className="font-display font-bold text-xl bg-gradient-to-r from-background via-chart-3/50 to-chart-3 bg-clip-text text-transparent">
-              Halloween Contest
+            <h1 className="font-display font-bold text-xl bg-gradient-to-r from-black to-chart-3 bg-clip-text text-transparent">
+              Halloween Costume Contest
             </h1>
           </div>
           <div className="flex items-center gap-4">
