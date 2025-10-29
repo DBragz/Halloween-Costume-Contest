@@ -29,7 +29,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card
             onClick={onEnterContest}
-            className="p-12 bg-black border-2 border-chart-3 cursor-pointer hover-elevate active-elevate-2 transition-all glow-orange group"
+            className="p-12 bg-background border-2 border-chart-3 cursor-pointer hover-elevate active-elevate-2 transition-all glow-orange group"
             data-testid="card-enter-contest"
           >
             <div className="text-center space-y-6">
@@ -49,7 +49,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
 
           <Card
             onClick={onGoToVoting}
-            className="p-12 bg-black border-2 border-chart-2 cursor-pointer hover-elevate active-elevate-2 transition-all glow-blue group"
+            className="p-12 bg-background border-2 border-chart-2 cursor-pointer hover-elevate active-elevate-2 transition-all glow-blue group"
             data-testid="card-vote-contestants"
           >
             <div className="text-center space-y-6">
