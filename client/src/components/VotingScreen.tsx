@@ -84,7 +84,7 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h1 className="font-display font-bold text-4xl text-foreground text-glow-blue">
+          <h1 className="font-display font-bold text-4xl text-chart-2">
             Vote for Contestants
           </h1>
         </div>

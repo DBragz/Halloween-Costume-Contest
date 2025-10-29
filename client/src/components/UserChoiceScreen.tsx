@@ -11,7 +11,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto">
         <div className="mb-12">
-          <h1 className="font-display font-bold text-4xl text-foreground text-glow-purple">
+          <h1 className="font-display font-bold text-4xl bg-gradient-to-r from-chart-3 to-chart-2 bg-clip-text text-transparent">
             Halloween Costume Contest
           </h1>
         </div>

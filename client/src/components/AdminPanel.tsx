@@ -51,7 +51,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
-          <h1 className="font-display font-bold text-4xl text-foreground text-glow-purple">
+          <h1 className="font-display font-bold text-4xl text-chart-1">
             Admin Panel
           </h1>
         </div>
