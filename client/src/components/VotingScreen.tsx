@@ -25,7 +25,8 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
       const res = await apiRequest('POST', `/api/contestants/${id}/vote`);
       return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data, id) => {
+      setVotedFor(id);
       queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
       toast({
         title: "Vote Recorded!",
@@ -43,7 +44,6 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
 
   const handleVote = (id: string) => {
     if (votedFor !== null || voteMutation.isPending) return;
-    setVotedFor(id);
     voteMutation.mutate(id);
   };
 
