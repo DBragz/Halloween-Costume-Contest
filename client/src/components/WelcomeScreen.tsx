@@ -9,7 +9,7 @@ export default function WelcomeScreen() {
             <h1 className="font-display font-bold text-6xl md:text-7xl text-foreground text-glow-purple mb-2">
               Halloween
             </h1>
-            <h1 className="font-display font-bold text-6xl md:text-7xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent glow-purple-intense">
+            <h1 className="font-display font-bold text-6xl md:text-7xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
               Costume Contest
             </h1>
           </div>
