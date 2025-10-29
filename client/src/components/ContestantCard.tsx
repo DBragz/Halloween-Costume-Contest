@@ -13,22 +13,26 @@ interface ContestantCardProps {
 }
 
 export default function ContestantCard({ id, name, description, votes, hasVoted, onVote }: ContestantCardProps) {
+  const textColor = hasVoted ? 'text-chart-1' : 'text-chart-3';
+  const borderColor = hasVoted ? 'border-chart-1/30' : 'border-chart-3/30';
+  const glowEffect = hasVoted ? 'text-glow-purple' : 'text-glow-orange';
+
   return (
     <Card
-      className={`p-6 bg-card border-2 transition-all ${
+      className={`p-6 bg-background border-2 transition-all ${
         hasVoted
           ? 'border-chart-1 glow-purple opacity-90'
-          : 'border-card-border hover-elevate'
+          : 'border-chart-3 glow-orange hover-elevate'
       }`}
       data-testid={`card-contestant-${id}`}
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <h3 className="font-display font-semibold text-xl text-foreground mb-2">
+            <h3 className={`font-display font-semibold text-xl ${textColor} mb-2`}>
               {name}
             </h3>
-            <p className="text-muted-foreground text-sm line-clamp-3">
+            <p className={`${textColor} text-sm line-clamp-3`}>
               {description}
             </p>
           </div>
@@ -40,12 +44,12 @@ export default function ContestantCard({ id, name, description, votes, hasVoted,
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-border">
+        <div className={`flex items-center justify-between pt-4 border-t ${borderColor}`}>
           <div className="text-center">
-            <p className="text-3xl font-display font-bold text-chart-2 text-glow-blue" data-testid={`text-votes-${id}`}>
+            <p className={`text-3xl font-display font-bold ${textColor} ${glowEffect}`} data-testid={`text-votes-${id}`}>
               {votes}
             </p>
-            <p className="text-xs text-muted-foreground">Votes</p>
+            <p className={`text-xs ${textColor}`}>Votes</p>
           </div>
 
           <Button

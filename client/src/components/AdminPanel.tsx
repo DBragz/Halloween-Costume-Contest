@@ -68,7 +68,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         </div>
 
         <div className="grid grid-cols-1 gap-6 mb-8">
-          <Card className="p-6 bg-background border-2 border-chart-1 glow-purple">
+          <Card className="p-6 bg-black border-2 border-chart-1 glow-purple">
             <h3 className="font-display font-semibold text-lg text-chart-1 mb-4">
               Contest Statistics
             </h3>
@@ -98,7 +98,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             Admin Actions
           </h2>
 
-          <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
+          <Card className="p-8 bg-black border-2 border-chart-3 glow-orange">
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
@@ -123,7 +123,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </div>
           </Card>
 
-          <Card className="p-8 bg-background border-2 border-destructive">
+          <Card className="p-8 bg-black border-2 border-destructive">
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
@@ -151,7 +151,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       </div>
 
       <AlertDialog open={showWipeVotesDialog} onOpenChange={setShowWipeVotesDialog}>
-        <AlertDialogContent className="bg-background border-2 border-chart-3 glow-orange">
+        <AlertDialogContent className="bg-black border-2 border-chart-3 glow-orange">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
               <AlertTriangle className="w-6 h-6 text-chart-3" />
@@ -179,7 +179,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       </AlertDialog>
 
       <AlertDialog open={showDeleteContestantsDialog} onOpenChange={setShowDeleteContestantsDialog}>
-        <AlertDialogContent className="bg-background border-2 border-destructive">
+        <AlertDialogContent className="bg-black border-2 border-destructive">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
               <AlertTriangle className="w-6 h-6 text-destructive" />

@@ -18,7 +18,6 @@ interface LiveRankingsDashboardProps {
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
   const { account } = useWeb3();
 
-  // TODO: remove mock functionality
   const contestants: Contestant[] = [
     { id: 1, name: 'Vampire Lord', description: 'Classic vampire with custom fangs and flowing cape', votes: 42 },
     { id: 2, name: 'Cyberpunk Witch', description: 'Futuristic witch with LED-lit hat and neon accents', votes: 38 },
@@ -85,7 +84,7 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           {topThree.map((contestant, index) => (
             <Card
               key={contestant.id}
-              className={`p-8 ${getPodiumColors(index)} border-2 transition-all ${
+              className={`p-8 bg-black ${getPodiumColors(index)} border-2 transition-all ${
                 index === 0 ? 'md:col-span-3 lg:col-span-1' : ''
               }`}
               data-testid={`card-rank-${index + 1}`}
@@ -98,10 +97,10 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
                   <Badge className="mb-2 font-display" data-testid={`badge-position-${index + 1}`}>
                     {index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'} Place
                   </Badge>
-                  <h2 className="font-display font-bold text-2xl text-foreground mb-2">
+                  <h2 className="font-display font-bold text-2xl mb-2">
                     {contestant.name}
                   </h2>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm mb-4">
                     {contestant.description}
                   </p>
                   <div className="pt-4 border-t border-current/20">
@@ -125,29 +124,29 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
               {remaining.map((contestant, index) => (
                 <Card
                   key={contestant.id}
-                  className="p-6 bg-card border-2 border-card-border flex items-center justify-between hover-elevate"
+                  className="p-6 bg-black border-2 border-chart-3 glow-orange flex items-center justify-between hover-elevate"
                   data-testid={`card-contestant-${contestant.id}`}
                 >
                   <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
-                      <span className="font-display font-bold text-xl text-muted-foreground">
+                    <div className="w-12 h-12 bg-chart-3/20 border-2 border-chart-3 rounded-full flex items-center justify-center">
+                      <span className="font-display font-bold text-xl text-chart-3">
                         {index + 4}
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-display font-semibold text-lg text-foreground">
+                      <h3 className="font-display font-semibold text-lg text-chart-3">
                         {contestant.name}
                       </h3>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-chart-3">
                         {contestant.description}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-3xl font-display font-bold text-chart-2" data-testid={`text-votes-${contestant.id}`}>
+                    <p className="text-3xl font-display font-bold text-chart-3" data-testid={`text-votes-${contestant.id}`}>
                       {contestant.votes}
                     </p>
-                    <p className="text-xs text-muted-foreground">Votes</p>
+                    <p className="text-xs text-chart-3">Votes</p>
                   </div>
                 </Card>
               ))}
