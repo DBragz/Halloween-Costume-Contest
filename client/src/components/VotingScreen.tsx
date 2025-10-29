@@ -10,11 +10,12 @@ import type { Contestant } from '@shared/schema';
 
 interface VotingScreenProps {
   onBack: () => void;
+  votedFor: string | null;
+  setVotedFor: (id: string | null) => void;
 }
 
-export default function VotingScreen({ onBack }: VotingScreenProps) {
+export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingScreenProps) {
   const { toast } = useToast();
-  const [votedFor, setVotedFor] = useState<string | null>(null);
   
   const { data: contestants = [], isLoading, isError } = useQuery<Contestant[]>({
     queryKey: ['/api', 'contestants'],

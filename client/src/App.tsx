@@ -16,6 +16,7 @@ import { Trophy, UserCog, LogOut, Ghost, Vote } from "lucide-react";
 function MainApp() {
   const [, setLocation] = useLocation();
   const { account, disconnectWallet } = useWeb3();
+  const [votedFor, setVotedFor] = useState<string | null>(null);
 
   if (!account) {
     return <WelcomeScreen />;
@@ -46,10 +47,15 @@ function MainApp() {
             <Button
               onClick={() => setLocation('/vote')}
               variant="ghost"
-              className="font-display hover-elevate text-chart-3"
+              disabled={votedFor !== null}
+              className={`font-display hover-elevate ${
+                votedFor !== null
+                  ? 'text-muted-foreground cursor-not-allowed opacity-50'
+                  : 'text-chart-3'
+              }`}
               data-testid="nav-vote"
             >
-              <Vote className="w-4 h-4 mr-2 text-chart-3" />
+              <Vote className={`w-4 h-4 mr-2 ${votedFor !== null ? 'text-muted-foreground' : 'text-chart-3'}`} />
               Vote
             </Button>
             <Button
@@ -98,7 +104,11 @@ function MainApp() {
           />
         </Route>
         <Route path="/vote">
-          <VotingScreen onBack={() => setLocation('/rankings')} />
+          <VotingScreen 
+            onBack={() => setLocation('/rankings')} 
+            votedFor={votedFor}
+            setVotedFor={setVotedFor}
+          />
         </Route>
         <Route path="/rankings">
           <LiveRankingsDashboard />
