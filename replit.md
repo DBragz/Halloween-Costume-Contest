@@ -47,15 +47,19 @@ Preferred communication style: Simple, everyday language.
 - RESTful endpoints for contestant management:
   - `POST /api/contestants` - Create new contestant entry
   - `GET /api/contestants` - Retrieve all contestants
-  - `DELETE /api/contestants` - Remove all contestants
-  - `POST /api/contestants/wipe-votes` - Reset vote counts
+  - `DELETE /api/contestants/:id` - Remove single contestant (clears associated vote records)
+  - `DELETE /api/contestants` - Remove all contestants (clears all vote records)
+  - `POST /api/contestants/wipe-votes` - Reset vote counts and clear vote records (users can vote again)
+  - `POST /api/contestants/:id/vote` - Vote for contestant (requires walletAddress, prevents duplicates)
+  - `GET /api/votes/:walletAddress` - Check vote status for wallet address
 - Input validation using Zod schemas from shared schema definitions
 - Error responses include descriptive messages
 
 **Data Storage**
 - Dual storage implementation: in-memory storage for development and database storage for production
-- IStorage interface defines CRUD operations for users and contestants
+- IStorage interface defines CRUD operations for users, contestants, and vote tracking
 - MemStorage provides HashMap-based storage with UUID generation
+- Vote tracking prevents duplicate voting by wallet address (case-insensitive)
 
 ### Database Architecture
 
@@ -68,7 +72,9 @@ Preferred communication style: Simple, everyday language.
 **Schema Design**
 - `users` table: id (UUID), username (unique), password
 - `contestants` table: id (UUID), personName, costumeName, walletAddress, votes (default 0), createdAt (timestamp)
+- `votes` table: id (UUID), walletAddress (voter), contestantId (voted for), createdAt (timestamp)
 - Zod schemas for insert validation exclude auto-generated fields
+- Vote records track which wallet addresses have voted and for whom
 
 **Database Provider**
 - Neon Serverless PostgreSQL with WebSocket support
@@ -113,3 +119,33 @@ Preferred communication style: Simple, everyday language.
 - Custom aliases: `@` for client/src, `@shared` for shared, `@assets` for attached_assets
 - Client root in `client` directory, build output to `dist/public`
 - Strict file system access denying dotfiles
+
+## Key Features
+
+### Vote Tracking System
+- **Database-backed voting**: Votes persist across page reloads and browser sessions
+- **Duplicate prevention**: Each wallet address can only vote once (case-insensitive check)
+- **Vote state synchronization**: Frontend automatically fetches and syncs vote status on load
+- **Admin reset capability**: 
+  - "Wipe All Votes" clears vote records AND allows all users to vote again
+  - "Delete All Contestants" removes contestants AND clears vote records, users can vote when new contestants added
+  - Single contestant deletion removes associated vote records
+- **Multi-wallet support**: Different wallet addresses can vote independently
+- **Real-time updates**: Query invalidation ensures all connected clients see current vote status
+
+### Admin Panel
+- **Password protection**: Requires password "drowssap" for access
+- **Live statistics**: Total votes, contestant count, average votes, highest votes
+- **Bulk operations**:
+  - Wipe all votes (resets counts to 0, clears vote records, users can vote again)
+  - Delete all contestants (removes all entries and vote records)
+- **Individual management**: Delete single contestants with automatic vote record cleanup
+- **Error handling**: Failed operations keep dialogs open with retry capability
+- **Query invalidation**: All admin actions trigger immediate UI refresh across all connected clients
+
+### Mobile Optimization
+- **Responsive navigation**: Icon-only buttons on mobile, full buttons with text on desktop
+- **Optimized spacing**: Reduced padding (p-3 vs p-6) and gaps on mobile screens
+- **Responsive typography**: Text scales down appropriately (text-2xl vs text-4xl)
+- **Touch-friendly controls**: Proper button sizing and spacing for mobile interactions
+- **Consistent breakpoints**: All responsive styles use Tailwind's sm: breakpoint
