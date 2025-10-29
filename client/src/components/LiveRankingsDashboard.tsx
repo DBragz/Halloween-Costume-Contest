@@ -41,9 +41,9 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
 
   const getPodiumColors = (position: number) => {
     switch (position) {
-      case 0: return 'border-chart-3 bg-chart-3/10 text-chart-3 glow-orange-intense';
-      case 1: return 'border-chart-2 bg-chart-2/10 text-chart-2 glow-blue-intense';
-      case 2: return 'border-chart-1 bg-chart-1/10 text-chart-1 glow-purple-intense';
+      case 0: return 'bg-background border-chart-3 text-chart-3 glow-orange-intense';
+      case 1: return 'bg-background border-chart-2 text-chart-2 glow-blue-intense';
+      case 2: return 'bg-background border-chart-1 text-chart-1 glow-purple-intense';
       default: return '';
     }
   };
