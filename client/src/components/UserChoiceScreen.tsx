@@ -14,7 +14,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-12">
-          <h1 className="font-display font-bold text-4xl text-foreground text-glow-purple">
+          <h1 className="font-display font-bold text-4xl bg-gradient-to-r from-black to-chart-3 bg-clip-text text-transparent">
             Halloween Costume Contest
           </h1>
           {account && (
@@ -29,7 +29,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <Card
             onClick={onEnterContest}
-            className="p-12 bg-card border-2 border-chart-3 cursor-pointer hover-elevate active-elevate-2 transition-all glow-orange group"
+            className="p-12 bg-background border-2 border-chart-3 cursor-pointer hover-elevate active-elevate-2 transition-all glow-orange group"
             data-testid="card-enter-contest"
           >
             <div className="text-center space-y-6">
@@ -40,7 +40,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
                 <h2 className="font-display font-bold text-3xl text-chart-3">
                   Enter Contest
                 </h2>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-chart-3 text-lg">
                   Submit your Halloween costume and compete for the top spot in the rankings
                 </p>
               </div>
@@ -49,7 +49,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
 
           <Card
             onClick={onGoToVoting}
-            className="p-12 bg-card border-2 border-chart-2 cursor-pointer hover-elevate active-elevate-2 transition-all glow-blue group"
+            className="p-12 bg-background border-2 border-chart-2 cursor-pointer hover-elevate active-elevate-2 transition-all glow-blue group"
             data-testid="card-vote-contestants"
           >
             <div className="text-center space-y-6">
@@ -60,7 +60,7 @@ export default function UserChoiceScreen({ onEnterContest, onGoToVoting }: UserC
                 <h2 className="font-display font-bold text-3xl text-chart-2">
                   Vote for Contestants
                 </h2>
-                <p className="text-muted-foreground text-lg">
+                <p className="text-chart-2 text-lg">
                   Browse all costume entries and cast your vote for your favorite
                 </p>
               </div>

@@ -1,7 +1,7 @@
 import { createWeb3Modal } from '@web3modal/wagmi/react';
 import { http, createConfig } from 'wagmi';
 import { mainnet, sepolia } from 'wagmi/chains';
-import { walletConnect, injected } from 'wagmi/connectors';
+import { walletConnect } from 'wagmi/connectors';
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID;
 
@@ -26,7 +26,6 @@ export const config = createConfig({
   },
   connectors: [
     walletConnect({ projectId, metadata, showQrModal: true }),
-    injected({ shimDisconnect: true }),
   ],
 });
 

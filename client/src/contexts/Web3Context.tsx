@@ -1,12 +1,10 @@
 import { createContext, useContext, ReactNode } from 'react';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
-import { injected, walletConnect } from 'wagmi/connectors';
 
 interface Web3ContextType {
   account: string | null;
   isConnecting: boolean;
-  connectMetaMask: () => Promise<void>;
-  connectWalletConnect: () => Promise<void>;
+  connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
 }
 
@@ -17,15 +15,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
   const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
 
-  const connectMetaMask = async () => {
-    const injectedConnector = connectors.find((c) => c.id === 'injected');
-    if (!injectedConnector) {
-      throw new Error('MetaMask connector not available. Please install MetaMask browser extension.');
-    }
-    await connectAsync({ connector: injectedConnector });
-  };
-
-  const connectWalletConnect = async () => {
+  const connectWallet = async () => {
     const walletConnectConnector = connectors.find((c) => c.id === 'walletConnect');
     if (!walletConnectConnector) {
       throw new Error('WalletConnect connector not available.');
@@ -42,8 +32,7 @@ export function Web3Provider({ children }: { children: ReactNode }) {
       value={{
         account: address || null,
         isConnecting: wagmiConnecting || isPending,
-        connectMetaMask,
-        connectWalletConnect,
+        connectWallet,
         disconnectWallet,
       }}
     >

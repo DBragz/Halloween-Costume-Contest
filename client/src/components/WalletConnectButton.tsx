@@ -1,38 +1,20 @@
-import { useState } from 'react';
 import { Wallet } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useWeb3 } from '@/contexts/Web3Context';
-import WalletSelectionDialog from './WalletSelectionDialog';
 import { useToast } from '@/hooks/use-toast';
 
 export default function WalletConnectButton() {
-  const { account, isConnecting, connectMetaMask, connectWalletConnect } = useWeb3();
-  const [showWalletDialog, setShowWalletDialog] = useState(false);
+  const { account, isConnecting, connectWallet } = useWeb3();
   const { toast } = useToast();
 
-  const handleMetaMaskSelect = async () => {
-    setShowWalletDialog(false);
+  const handleConnect = async () => {
     try {
-      await connectMetaMask();
+      await connectWallet();
     } catch (error) {
-      console.error('Error connecting MetaMask:', error);
+      console.error('Error connecting wallet:', error);
       toast({
         title: 'Connection Error',
-        description: 'Failed to connect MetaMask. Please try again.',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const handleWalletConnectSelect = async () => {
-    setShowWalletDialog(false);
-    try {
-      await connectWalletConnect();
-    } catch (error) {
-      console.error('Error connecting WalletConnect:', error);
-      toast({
-        title: 'Connection Error',
-        description: 'Failed to connect WalletConnect. Please try again.',
+        description: 'Failed to connect wallet. Please try again.',
         variant: 'destructive',
       });
     }
@@ -51,23 +33,14 @@ export default function WalletConnectButton() {
   }
 
   return (
-    <>
-      <Button
-        onClick={() => setShowWalletDialog(true)}
-        disabled={isConnecting}
-        className="bg-chart-2 hover:bg-chart-2 border-2 border-chart-2 text-black font-display font-semibold text-base px-8 py-6 glow-blue-intense"
-        data-testid="button-connect-wallet"
-      >
-        <Wallet className="w-5 h-5 mr-2" />
-        {isConnecting ? 'Connecting...' : 'Connect Wallet'}
-      </Button>
-
-      <WalletSelectionDialog
-        open={showWalletDialog}
-        onOpenChange={setShowWalletDialog}
-        onSelectMetaMask={handleMetaMaskSelect}
-        onSelectWalletConnect={handleWalletConnectSelect}
-      />
-    </>
+    <Button
+      onClick={handleConnect}
+      disabled={isConnecting}
+      className="bg-chart-2 hover:bg-chart-2 border-2 border-chart-2 text-black font-display font-semibold text-base px-8 py-6 glow-blue-intense"
+      data-testid="button-connect-wallet"
+    >
+      <Wallet className="w-5 h-5 mr-2" />
+      {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+    </Button>
   );
 }

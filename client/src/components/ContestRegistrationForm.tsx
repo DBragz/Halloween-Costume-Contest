@@ -48,13 +48,13 @@ export default function ContestRegistrationForm({ onBack, onSubmit }: ContestReg
           )}
         </div>
 
-        <Card className="p-8 bg-card border-2 border-chart-3 glow-orange">
+        <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
           <div className="space-y-6">
             <div className="text-center space-y-2">
               <h1 className="font-display font-bold text-4xl text-chart-3 text-glow-orange">
                 Enter Contest
               </h1>
-              <p className="text-muted-foreground">
+              <p className="text-chart-3">
                 Tell us about your amazing Halloween costume
               </p>
             </div>
