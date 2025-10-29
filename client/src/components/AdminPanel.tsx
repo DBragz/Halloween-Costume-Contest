@@ -68,26 +68,26 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         </div>
 
         <div className="grid grid-cols-1 gap-6 mb-8">
-          <Card className="p-6 bg-black border-2 border-chart-1 glow-purple">
+          <Card className="p-6 bg-background border-2 border-chart-1 glow-purple">
             <h3 className="font-display font-semibold text-lg text-chart-1 mb-4">
               Contest Statistics
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-2">42</p>
-                <p className="text-sm text-chart-2">Total Votes</p>
+                <p className="text-3xl font-display font-bold text-chart-1">42</p>
+                <p className="text-sm text-chart-1">Total Votes</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-3">6</p>
-                <p className="text-sm text-chart-3">Contestants</p>
+                <p className="text-3xl font-display font-bold text-chart-1">6</p>
+                <p className="text-sm text-chart-1">Contestants</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-display font-bold text-chart-1">18</p>
                 <p className="text-sm text-chart-1">Voters</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-2">42</p>
-                <p className="text-sm text-chart-2">Highest Votes</p>
+                <p className="text-3xl font-display font-bold text-chart-1">42</p>
+                <p className="text-sm text-chart-1">Highest Votes</p>
               </div>
             </div>
           </Card>
@@ -98,7 +98,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             Admin Actions
           </h2>
 
-          <Card className="p-8 bg-black border-2 border-chart-3 glow-orange">
+          <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
