@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Web3Provider, useWeb3 } from "@/contexts/Web3Context";
@@ -12,11 +12,27 @@ import LiveRankingsDashboard from "@/components/LiveRankingsDashboard";
 import AdminPanel from "@/components/AdminPanel";
 import { Button } from "@/components/ui/button";
 import { Trophy, UserCog, LogOut, Ghost, Vote } from "lucide-react";
+import type { Vote as VoteType } from "@shared/schema";
 
 function MainApp() {
   const [, setLocation] = useLocation();
   const { account, disconnectWallet } = useWeb3();
   const [votedFor, setVotedFor] = useState<string | null>(null);
+
+  // Fetch vote status from database
+  const { data: voteData } = useQuery<VoteType | null>({
+    queryKey: ['/api', 'votes', account],
+    enabled: !!account,
+  });
+
+  // Update votedFor when vote data is loaded or account changes
+  useEffect(() => {
+    if (voteData) {
+      setVotedFor(voteData.contestantId);
+    } else {
+      setVotedFor(null);
+    }
+  }, [voteData, account]);
 
   if (!account) {
     return <WelcomeScreen />;

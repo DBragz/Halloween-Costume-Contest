@@ -34,3 +34,18 @@ export const insertContestantSchema = createInsertSchema(contestants).omit({
 
 export type InsertContestant = z.infer<typeof insertContestantSchema>;
 export type Contestant = typeof contestants.$inferSelect;
+
+export const votes = pgTable("votes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walletAddress: text("wallet_address").notNull(),
+  contestantId: varchar("contestant_id").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertVoteSchema = createInsertSchema(votes).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertVote = z.infer<typeof insertVoteSchema>;
+export type Vote = typeof votes.$inferSelect;

@@ -43,6 +43,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api', 'votes'] });
       toast({
         title: "Votes Wiped",
         description: "All vote counts have been reset to zero.",
@@ -65,6 +66,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api', 'votes'] });
       toast({
         title: "Contestants Deleted",
         description: "All contestants have been removed from the system.",
@@ -87,6 +89,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api', 'votes'] });
       toast({
         title: "Contestant Deleted",
         description: "The contestant has been removed.",

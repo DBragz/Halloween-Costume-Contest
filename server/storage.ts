@@ -1,4 +1,4 @@
-import { type User, type InsertUser, type Contestant, type InsertContestant } from "@shared/schema";
+import { type User, type InsertUser, type Contestant, type InsertContestant, type Vote, type InsertVote } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 // modify the interface with any CRUD methods
@@ -17,15 +17,22 @@ export interface IStorage {
   deleteAllContestants(): Promise<void>;
   wipeVotes(): Promise<void>;
   voteForContestant(id: string): Promise<Contestant | undefined>;
+  
+  // Vote tracking methods
+  recordVote(vote: InsertVote): Promise<Vote>;
+  getVoteByWalletAddress(walletAddress: string): Promise<Vote | undefined>;
+  deleteAllVotes(): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contestants: Map<string, Contestant>;
+  private votes: Map<string, Vote>;
 
   constructor() {
     this.users = new Map();
     this.contestants = new Map();
+    this.votes = new Map();
   }
 
   async getUser(id: string): Promise<User | undefined> {
@@ -69,11 +76,23 @@ export class MemStorage implements IStorage {
   }
 
   async deleteContestant(id: string): Promise<boolean> {
-    return this.contestants.delete(id);
+    const deleted = this.contestants.delete(id);
+    if (deleted) {
+      // Remove all votes for this contestant
+      const votesToDelete: string[] = [];
+      this.votes.forEach((vote, voteId) => {
+        if (vote.contestantId === id) {
+          votesToDelete.push(voteId);
+        }
+      });
+      votesToDelete.forEach(voteId => this.votes.delete(voteId));
+    }
+    return deleted;
   }
 
   async deleteAllContestants(): Promise<void> {
     this.contestants.clear();
+    this.votes.clear();
   }
 
   async wipeVotes(): Promise<void> {
@@ -90,6 +109,28 @@ export class MemStorage implements IStorage {
     const updatedContestant = { ...contestant, votes: contestant.votes + 1 };
     this.contestants.set(id, updatedContestant);
     return updatedContestant;
+  }
+  
+  // Vote tracking methods
+  async recordVote(insertVote: InsertVote): Promise<Vote> {
+    const id = randomUUID();
+    const vote: Vote = {
+      ...insertVote,
+      id,
+      createdAt: new Date(),
+    };
+    this.votes.set(id, vote);
+    return vote;
+  }
+
+  async getVoteByWalletAddress(walletAddress: string): Promise<Vote | undefined> {
+    return Array.from(this.votes.values()).find(
+      (vote) => vote.walletAddress.toLowerCase() === walletAddress.toLowerCase()
+    );
+  }
+
+  async deleteAllVotes(): Promise<void> {
+    this.votes.clear();
   }
 }
 

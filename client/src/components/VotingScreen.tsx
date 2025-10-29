@@ -5,6 +5,7 @@ import ContestantCard from './ContestantCard';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { queryClient } from '@/lib/queryClient';
+import { useWeb3 } from '@/contexts/Web3Context';
 import type { Contestant } from '@shared/schema';
 
 interface VotingScreenProps {
@@ -15,6 +16,7 @@ interface VotingScreenProps {
 
 export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingScreenProps) {
   const { toast } = useToast();
+  const { account } = useWeb3();
   
   const { data: contestants = [], isLoading, isError } = useQuery<Contestant[]>({
     queryKey: ['/api', 'contestants'],
@@ -22,18 +24,30 @@ export default function VotingScreen({ onBack, votedFor, setVotedFor }: VotingSc
 
   const voteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const res = await apiRequest('POST', `/api/contestants/${id}/vote`);
+      const res = await apiRequest('POST', `/api/contestants/${id}/vote`, {
+        walletAddress: account
+      });
+      if (!res.ok) {
+        const error = await res.json();
+        // If the error includes votedFor info, return it so we can sync state
+        throw { message: error.error || 'Failed to vote', votedFor: error.votedFor };
+      }
       return res.json();
     },
     onSuccess: (data, id) => {
       setVotedFor(id);
       queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
+      queryClient.invalidateQueries({ queryKey: ['/api', 'votes', account] });
       toast({
         title: "Vote Recorded!",
         description: "Thank you for voting!",
       });
     },
     onError: (error: any) => {
+      // If the server indicates the user already voted, sync the local state
+      if (error.votedFor) {
+        setVotedFor(error.votedFor);
+      }
       toast({
         title: "Error",
         description: error.message || "Failed to record vote. Please try again.",
