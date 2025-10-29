@@ -13,14 +13,14 @@ export default function WelcomeScreen() {
               Costume Contest
             </h1>
           </div>
-          <p className="text-xl text-muted-foreground font-sans max-w-lg mx-auto">
+          <p className="text-xl text-white font-sans max-w-lg mx-auto">
             Connect your Web3 wallet to enter the contest or vote for your favorite costume
           </p>
         </div>
 
         <div className="flex flex-col items-center gap-6">
           <WalletConnectButton />
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-white">
             Requires MetaMask or compatible Web3 wallet
           </p>
         </div>
