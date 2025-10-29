@@ -14,7 +14,7 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 0 0% 98%;
+  --background: 0 0% 0%;
 
   --foreground: 0 0% 10%;
 
@@ -141,7 +141,7 @@
   --elevate-1: rgba(255,255,255, .04);
   --elevate-2: rgba(255,255,255, .09);
 
-  --background: 0 0% 4%;
+  --background: 0 0% 0%;
 
   --foreground: 0 0% 98%;
 
