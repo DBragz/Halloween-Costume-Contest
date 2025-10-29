@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import type { Contestant } from '@shared/schema';
 
 interface LiveRankingsDashboardProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
@@ -41,15 +41,17 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center gap-4 mb-8">
-          <Button
-            variant="ghost"
-            onClick={onBack}
-            className="text-muted-foreground hover-elevate"
-            data-testid="button-back"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
+          {onBack && (
+            <Button
+              variant="ghost"
+              onClick={onBack}
+              className="text-muted-foreground hover-elevate"
+              data-testid="button-back"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
+          )}
           <h1 className="font-display font-bold text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
             LIVE RANKINGS
           </h1>

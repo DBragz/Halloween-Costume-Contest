@@ -6,13 +6,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Web3Provider, useWeb3 } from "@/contexts/Web3Context";
 import WelcomeScreen from "@/components/WelcomeScreen";
-import UserChoiceScreen from "@/components/UserChoiceScreen";
 import ContestRegistrationForm from "@/components/ContestRegistrationForm";
 import VotingScreen from "@/components/VotingScreen";
 import LiveRankingsDashboard from "@/components/LiveRankingsDashboard";
 import AdminPanel from "@/components/AdminPanel";
 import { Button } from "@/components/ui/button";
-import { Trophy, UserCog, LogOut } from "lucide-react";
+import { Trophy, UserCog, LogOut, Ghost, Vote } from "lucide-react";
 
 function MainApp() {
   const [, setLocation] = useLocation();
@@ -35,6 +34,24 @@ function MainApp() {
             </h1>
           </div>
           <div className="flex items-center gap-4">
+            <Button
+              onClick={() => setLocation('/register')}
+              variant="ghost"
+              className="font-display hover-elevate text-chart-3"
+              data-testid="nav-enter-contest"
+            >
+              <Ghost className="w-4 h-4 mr-2 text-chart-3" />
+              Enter Contest
+            </Button>
+            <Button
+              onClick={() => setLocation('/vote')}
+              variant="ghost"
+              className="font-display hover-elevate text-chart-3"
+              data-testid="nav-vote"
+            >
+              <Vote className="w-4 h-4 mr-2 text-chart-3" />
+              Vote
+            </Button>
             <Button
               onClick={() => setLocation('/rankings')}
               variant="ghost"
@@ -73,24 +90,21 @@ function MainApp() {
 
       <Switch>
         <Route path="/">
-          <UserChoiceScreen
-            onEnterContest={() => setLocation('/register')}
-            onGoToVoting={() => setLocation('/vote')}
-          />
+          <LiveRankingsDashboard />
         </Route>
         <Route path="/register">
           <ContestRegistrationForm
-            onBack={() => setLocation('/')}
+            onBack={() => setLocation('/rankings')}
           />
         </Route>
         <Route path="/vote">
-          <VotingScreen onBack={() => setLocation('/')} />
+          <VotingScreen onBack={() => setLocation('/rankings')} />
         </Route>
         <Route path="/rankings">
-          <LiveRankingsDashboard onBack={() => setLocation('/')} />
+          <LiveRankingsDashboard />
         </Route>
         <Route path="/admin">
-          <AdminPanel onBack={() => setLocation('/')} />
+          <AdminPanel onBack={() => setLocation('/rankings')} />
         </Route>
       </Switch>
     </div>
