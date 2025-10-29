@@ -1,26 +1,50 @@
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import ContestantCard from './ContestantCard';
-
-interface Contestant {
-  id: number;
-  name: string;
-  description: string;
-  votes: number;
-}
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
+import { queryClient } from '@/lib/queryClient';
+import type { Contestant } from '@shared/schema';
 
 interface VotingScreenProps {
   onBack: () => void;
 }
 
 export default function VotingScreen({ onBack }: VotingScreenProps) {
-  const [votedFor, setVotedFor] = useState<number | null>(null);
-  const contestants: Contestant[] = [];
+  const { toast } = useToast();
+  const [votedFor, setVotedFor] = useState<string | null>(null);
+  
+  const { data: contestants = [], isLoading, isError } = useQuery<Contestant[]>({
+    queryKey: ['/api', 'contestants'],
+  });
 
-  const handleVote = (id: number) => {
-    if (votedFor !== null) return;
+  const voteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await apiRequest('POST', `/api/contestants/${id}/vote`);
+      return res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api', 'contestants'] });
+      toast({
+        title: "Vote Recorded!",
+        description: "Thank you for voting!",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to record vote. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleVote = (id: string) => {
+    if (votedFor !== null || voteMutation.isPending) return;
     setVotedFor(id);
+    voteMutation.mutate(id);
   };
 
   return (
@@ -49,7 +73,19 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
           </div>
         )}
 
-        {contestants.length === 0 ? (
+        {isLoading ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              Loading contestants...
+            </p>
+          </div>
+        ) : isError ? (
+          <div className="text-center py-12">
+            <p className="text-destructive text-lg">
+              Failed to load contestants. Please try again later.
+            </p>
+          </div>
+        ) : contestants.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
               No contestants have entered yet. Be the first to enter the contest!
@@ -60,7 +96,10 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
             {contestants.map((contestant) => (
               <ContestantCard
                 key={contestant.id}
-                {...contestant}
+                id={contestant.id}
+                personName={contestant.personName}
+                costumeName={contestant.costumeName}
+                votes={contestant.votes}
                 hasVoted={votedFor === contestant.id}
                 onVote={handleVote}
               />

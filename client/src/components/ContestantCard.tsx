@@ -4,15 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
 interface ContestantCardProps {
-  id: number;
-  name: string;
-  description: string;
+  id: string;
+  personName: string;
+  costumeName: string;
   votes: number;
   hasVoted: boolean;
-  onVote: (id: number) => void;
+  onVote: (id: string) => void;
 }
 
-export default function ContestantCard({ id, name, description, votes, hasVoted, onVote }: ContestantCardProps) {
+export default function ContestantCard({ id, personName, costumeName, votes, hasVoted, onVote }: ContestantCardProps) {
   const textColor = hasVoted ? 'text-chart-1' : 'text-chart-3';
   const borderColor = hasVoted ? 'border-chart-1/30' : 'border-chart-3/30';
   const glowEffect = hasVoted ? 'text-glow-purple' : 'text-glow-orange';
@@ -30,10 +30,10 @@ export default function ContestantCard({ id, name, description, votes, hasVoted,
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
             <h3 className={`font-display font-semibold text-xl ${textColor} mb-2`}>
-              {name}
+              {personName}
             </h3>
             <p className={`${textColor} text-sm line-clamp-3`}>
-              {description}
+              {costumeName}
             </p>
           </div>
           {hasVoted && (

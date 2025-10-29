@@ -15,6 +15,7 @@ export interface IStorage {
   getContestant(id: string): Promise<Contestant | undefined>;
   deleteAllContestants(): Promise<void>;
   wipeVotes(): Promise<void>;
+  voteForContestant(id: string): Promise<Contestant | undefined>;
 }
 
 export class MemStorage implements IStorage {
@@ -74,6 +75,16 @@ export class MemStorage implements IStorage {
     Array.from(this.contestants.entries()).forEach(([id, contestant]) => {
       this.contestants.set(id, { ...contestant, votes: 0 });
     });
+  }
+
+  async voteForContestant(id: string): Promise<Contestant | undefined> {
+    const contestant = this.contestants.get(id);
+    if (!contestant) {
+      return undefined;
+    }
+    const updatedContestant = { ...contestant, votes: contestant.votes + 1 };
+    this.contestants.set(id, updatedContestant);
+    return updatedContestant;
   }
 }
 
