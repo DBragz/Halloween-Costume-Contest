@@ -24,10 +24,6 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
   const [showDeleteContestantsDialog, setShowDeleteContestantsDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
-  // TODO: Replace with actual ENS resolution - for demo purposes
-  const ADMIN_ADDRESS = '0x1234567890123456789012345678901234567890'; // dbragz.eth
-  const isAdmin = account?.toLowerCase() === ADMIN_ADDRESS.toLowerCase();
-
   const handleWipeVotes = async () => {
     setIsProcessing(true);
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -43,35 +39,6 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     setShowDeleteContestantsDialog(false);
     setIsProcessing(false);
   };
-
-  if (!isAdmin) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <Card className="p-12 bg-card border-2 border-destructive glow-orange max-w-md">
-          <div className="text-center space-y-4">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-destructive/20 border-2 border-destructive rounded-full">
-              <Shield className="w-8 h-8 text-destructive" />
-            </div>
-            <h2 className="font-display font-bold text-2xl text-destructive">
-              Access Denied
-            </h2>
-            <p className="text-muted-foreground">
-              Only the admin wallet (dbragz.eth) can access this panel
-            </p>
-            <Button
-              onClick={onBack}
-              variant="outline"
-              className="mt-6"
-              data-testid="button-back"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Go Back
-            </Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-background p-6">
@@ -100,14 +67,6 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
           )}
         </div>
 
-        <div className="mb-8 p-4 bg-chart-1/10 border-2 border-chart-1 rounded-md glow-purple">
-          <div className="flex items-center gap-3">
-            <Shield className="w-5 h-5 text-chart-1" />
-            <p className="text-chart-1 font-display font-semibold">
-              Admin Access Granted - dbragz.eth
-            </p>
-          </div>
-        </div>
 
         <div className="grid grid-cols-1 gap-6 mb-8">
           <Card className="p-6 bg-card border-2 border-card-border">
