@@ -81,10 +81,6 @@ function MainApp() {
         <Route path="/register">
           <ContestRegistrationForm
             onBack={() => setLocation('/')}
-            onSubmit={(data) => {
-              console.log('Registration submitted:', data);
-              setLocation('/');
-            }}
           />
         </Route>
         <Route path="/vote">
