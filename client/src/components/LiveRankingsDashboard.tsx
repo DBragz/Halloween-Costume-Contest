@@ -1,0 +1,160 @@
+import { Trophy, Medal, Award, ArrowLeft } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { useWeb3 } from '@/contexts/Web3Context';
+
+interface Contestant {
+  id: number;
+  name: string;
+  description: string;
+  votes: number;
+}
+
+interface LiveRankingsDashboardProps {
+  onBack: () => void;
+}
+
+export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
+  const { account } = useWeb3();
+
+  // TODO: remove mock functionality
+  const contestants: Contestant[] = [
+    { id: 1, name: 'Vampire Lord', description: 'Classic vampire with custom fangs and flowing cape', votes: 42 },
+    { id: 2, name: 'Cyberpunk Witch', description: 'Futuristic witch with LED-lit hat and neon accents', votes: 38 },
+    { id: 3, name: 'Steampunk Inventor', description: 'Victorian inventor with working gear mechanisms', votes: 35 },
+    { id: 4, name: 'Zombie Astronaut', description: 'Space explorer turned zombie', votes: 29 },
+    { id: 5, name: 'Ice Queen', description: 'Frozen sorceress with crystalline dress', votes: 27 },
+  ];
+
+  const sortedContestants = [...contestants].sort((a, b) => b.votes - a.votes);
+  const topThree = sortedContestants.slice(0, 3);
+  const remaining = sortedContestants.slice(3);
+
+  const getPodiumIcon = (position: number) => {
+    switch (position) {
+      case 0: return <Trophy className="w-12 h-12" />;
+      case 1: return <Medal className="w-10 h-10" />;
+      case 2: return <Award className="w-10 h-10" />;
+      default: return null;
+    }
+  };
+
+  const getPodiumColors = (position: number) => {
+    switch (position) {
+      case 0: return 'border-chart-3 bg-chart-3/10 text-chart-3 glow-orange-intense';
+      case 1: return 'border-chart-2 bg-chart-2/10 text-chart-2 glow-blue-intense';
+      case 2: return 'border-chart-1 bg-chart-1/10 text-chart-1 glow-purple-intense';
+      default: return '';
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background p-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              onClick={onBack}
+              className="text-muted-foreground hover-elevate"
+              data-testid="button-back"
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
+            </Button>
+            <h1 className="font-display font-bold text-5xl bg-gradient-to-r from-chart-1 via-chart-2 to-chart-3 bg-clip-text text-transparent">
+              LIVE RANKINGS
+            </h1>
+          </div>
+          {account && (
+            <div className="px-4 py-2 border-2 border-chart-2 bg-chart-2/10 rounded-md glow-blue">
+              <p className="text-sm font-mono text-foreground">
+                {account.slice(0, 6)}...{account.slice(-4)}
+              </p>
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center justify-center gap-2 mb-12">
+          <div className="w-3 h-3 bg-chart-2 rounded-full animate-pulse glow-blue"></div>
+          <p className="text-sm text-muted-foreground">Live updates every 5 seconds</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {topThree.map((contestant, index) => (
+            <Card
+              key={contestant.id}
+              className={`p-8 ${getPodiumColors(index)} border-2 transition-all ${
+                index === 0 ? 'md:col-span-3 lg:col-span-1' : ''
+              }`}
+              data-testid={`card-rank-${index + 1}`}
+            >
+              <div className="text-center space-y-4">
+                <div className="inline-flex items-center justify-center w-20 h-20 bg-background/50 border-2 rounded-full">
+                  {getPodiumIcon(index)}
+                </div>
+                <div>
+                  <Badge className="mb-2 font-display" data-testid={`badge-position-${index + 1}`}>
+                    {index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'} Place
+                  </Badge>
+                  <h2 className="font-display font-bold text-2xl text-foreground mb-2">
+                    {contestant.name}
+                  </h2>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    {contestant.description}
+                  </p>
+                  <div className="pt-4 border-t border-current/20">
+                    <p className="text-5xl font-display font-bold" data-testid={`text-votes-rank-${index + 1}`}>
+                      {contestant.votes}
+                    </p>
+                    <p className="text-sm opacity-80">Votes</p>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        {remaining.length > 0 && (
+          <div className="space-y-4">
+            <h2 className="font-display font-semibold text-2xl text-foreground mb-6">
+              Other Contestants
+            </h2>
+            <div className="space-y-3">
+              {remaining.map((contestant, index) => (
+                <Card
+                  key={contestant.id}
+                  className="p-6 bg-card border-2 border-card-border flex items-center justify-between hover-elevate"
+                  data-testid={`card-contestant-${contestant.id}`}
+                >
+                  <div className="flex items-center gap-6">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                      <span className="font-display font-bold text-xl text-muted-foreground">
+                        {index + 4}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="font-display font-semibold text-lg text-foreground">
+                        {contestant.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground">
+                        {contestant.description}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-3xl font-display font-bold text-chart-2" data-testid={`text-votes-${contestant.id}`}>
+                      {contestant.votes}
+                    </p>
+                    <p className="text-xs text-muted-foreground">Votes</p>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
