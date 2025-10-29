@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ContestantCard from './ContestantCard';
-import { useWeb3 } from '@/contexts/Web3Context';
 
 interface Contestant {
   id: number;
@@ -16,7 +15,6 @@ interface VotingScreenProps {
 }
 
 export default function VotingScreen({ onBack }: VotingScreenProps) {
-  const { account } = useWeb3();
   const [votedFor, setVotedFor] = useState<number | null>(null);
   
   // TODO: remove mock functionality
@@ -76,28 +74,19 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              onClick={onBack}
-              className="text-muted-foreground hover-elevate"
-              data-testid="button-back"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Button>
-            <h1 className="font-display font-bold text-4xl text-foreground text-glow-blue">
-              Vote for Contestants
-            </h1>
-          </div>
-          {account && (
-            <div className="px-4 py-2 border-2 border-chart-2 bg-chart-2/10 rounded-md glow-blue">
-              <p className="text-sm font-mono text-foreground">
-                {account.slice(0, 6)}...{account.slice(-4)}
-              </p>
-            </div>
-          )}
+        <div className="flex items-center gap-4 mb-8">
+          <Button
+            variant="ghost"
+            onClick={onBack}
+            className="text-muted-foreground hover-elevate"
+            data-testid="button-back"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back
+          </Button>
+          <h1 className="font-display font-bold text-4xl text-foreground text-glow-blue">
+            Vote for Contestants
+          </h1>
         </div>
 
         {votedFor && (
