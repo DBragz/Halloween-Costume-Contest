@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Trash2, RotateCcw, Shield, ArrowLeft, AlertTriangle } from 'lucide-react';
+import { Trash2, RotateCcw, Shield, ArrowLeft, AlertTriangle, Lock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,9 +19,35 @@ interface AdminPanelProps {
 }
 
 export default function AdminPanel({ onBack }: AdminPanelProps) {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
   const [showWipeVotesDialog, setShowWipeVotesDialog] = useState(false);
   const [showDeleteContestantsDialog, setShowDeleteContestantsDialog] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const handlePasswordSubmit = () => {
+    if (password === 'drowssap') {
+      setIsAuthenticated(true);
+      setPasswordError('');
+      setPassword('');
+    } else {
+      setPasswordError('Incorrect password. Please try again.');
+      setPassword('');
+    }
+  };
+
+  const handlePasswordKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handlePasswordSubmit();
+    }
+  };
+
+  const handleCancelPassword = () => {
+    setPassword('');
+    setPasswordError('');
+    onBack();
+  };
 
   const handleWipeVotes = async () => {
     setIsProcessing(true);
@@ -35,6 +62,52 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
     setShowDeleteContestantsDialog(false);
     setIsProcessing(false);
   };
+
+  if (!isAuthenticated) {
+    return (
+      <AlertDialog open={true}>
+        <AlertDialogContent className="bg-background border-2 border-chart-1 glow-purple">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
+              <Lock className="w-6 h-6 text-chart-1" />
+              Admin Access Required
+            </AlertDialogTitle>
+            <AlertDialogDescription>
+              Please enter the admin password to access the admin panel.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="py-4">
+            <Input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              onKeyPress={handlePasswordKeyPress}
+              className="bg-background border-2 border-chart-1/30 focus:border-chart-1 h-12"
+              data-testid="input-admin-password"
+            />
+            {passwordError && (
+              <p className="text-destructive text-sm mt-2" data-testid="text-password-error">
+                {passwordError}
+              </p>
+            )}
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleCancelPassword} data-testid="button-cancel-password">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handlePasswordSubmit}
+              className="bg-chart-1 hover:bg-chart-1 text-white"
+              data-testid="button-submit-password"
+            >
+              Submit
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background p-6">
