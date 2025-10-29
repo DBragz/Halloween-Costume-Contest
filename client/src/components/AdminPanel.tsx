@@ -343,7 +343,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       <AlertDialog open={showWipeVotesDialog} onOpenChange={setShowWipeVotesDialog}>
         <AlertDialogContent className="bg-background border-2 border-chart-3 glow-orange">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
+            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3 text-chart-3">
               <AlertTriangle className="w-6 h-6 text-chart-3" />
               Wipe All Votes?
             </AlertDialogTitle>
@@ -353,7 +353,11 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={wipeVotesMutation.isPending} data-testid="button-cancel-wipe">
+            <AlertDialogCancel 
+              disabled={wipeVotesMutation.isPending}
+              className="border-2 border-chart-3 text-chart-3 hover:bg-chart-3/10"
+              data-testid="button-cancel-wipe"
+            >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -370,10 +374,10 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
 
       {/* Delete All Contestants Dialog */}
       <AlertDialog open={showDeleteContestantsDialog} onOpenChange={setShowDeleteContestantsDialog}>
-        <AlertDialogContent className="bg-background border-2 border-destructive">
+        <AlertDialogContent className="bg-background border-2 border-chart-3 glow-orange">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
-              <AlertTriangle className="w-6 h-6 text-destructive" />
+            <AlertDialogTitle className="font-display text-2xl flex items-center gap-3 text-chart-3">
+              <AlertTriangle className="w-6 h-6 text-chart-3" />
               Delete All Contestants?
             </AlertDialogTitle>
             <AlertDialogDescription>
@@ -382,7 +386,11 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={deleteAllMutation.isPending} data-testid="button-cancel-delete">
+            <AlertDialogCancel 
+              disabled={deleteAllMutation.isPending}
+              className="border-2 border-chart-3 text-chart-3 hover:bg-chart-3/10"
+              data-testid="button-cancel-delete"
+            >
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
