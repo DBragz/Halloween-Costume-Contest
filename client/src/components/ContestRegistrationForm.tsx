@@ -19,7 +19,7 @@ export default function ContestRegistrationForm({ onBack, onSubmit }: ContestReg
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // TODO: Implement API call to submit contest entry
     onSubmit({ name, description });
     setIsSubmitting(false);
   };

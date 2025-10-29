@@ -24,16 +24,14 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
 
   const handleWipeVotes = async () => {
     setIsProcessing(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('All votes wiped');
+    // TODO: Implement API call to wipe votes
     setShowWipeVotesDialog(false);
     setIsProcessing(false);
   };
 
   const handleDeleteContestants = async () => {
     setIsProcessing(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('All contestants deleted');
+    // TODO: Implement API call to delete contestants
     setShowDeleteContestantsDialog(false);
     setIsProcessing(false);
   };
@@ -63,19 +61,19 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-1">42</p>
+                <p className="text-3xl font-display font-bold text-chart-1">0</p>
                 <p className="text-sm text-chart-1">Total Votes</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-1">6</p>
+                <p className="text-3xl font-display font-bold text-chart-1">0</p>
                 <p className="text-sm text-chart-1">Contestants</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-1">18</p>
+                <p className="text-3xl font-display font-bold text-chart-1">0</p>
                 <p className="text-sm text-chart-1">Voters</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-display font-bold text-chart-1">42</p>
+                <p className="text-3xl font-display font-bold text-chart-1">0</p>
                 <p className="text-sm text-chart-1">Highest Votes</p>
               </div>
             </div>

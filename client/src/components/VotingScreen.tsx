@@ -16,59 +16,11 @@ interface VotingScreenProps {
 
 export default function VotingScreen({ onBack }: VotingScreenProps) {
   const [votedFor, setVotedFor] = useState<number | null>(null);
-  
-  // TODO: remove mock functionality
-  const [contestants, setContestants] = useState<Contestant[]>([
-    {
-      id: 1,
-      name: 'Vampire Lord',
-      description: 'Classic vampire costume with custom fangs, flowing cape, and authentic Victorian-era clothing.',
-      votes: 42,
-    },
-    {
-      id: 2,
-      name: 'Cyberpunk Witch',
-      description: 'Futuristic witch with LED-lit hat, neon accents, and holographic crystal ball.',
-      votes: 38,
-    },
-    {
-      id: 3,
-      name: 'Steampunk Inventor',
-      description: 'Victorian inventor with working gear mechanisms, brass goggles, and steam-powered gadgets.',
-      votes: 35,
-    },
-    {
-      id: 4,
-      name: 'Zombie Astronaut',
-      description: 'Space explorer turned zombie with torn NASA suit and glowing alien parasite effects.',
-      votes: 29,
-    },
-    {
-      id: 5,
-      name: 'Ice Queen',
-      description: 'Frozen sorceress with crystalline dress, icicle crown, and magical snowflake effects.',
-      votes: 27,
-    },
-    {
-      id: 6,
-      name: 'Pirate Captain',
-      description: 'Weathered sea captain with authentic leather gear, compass, and treasured loot.',
-      votes: 24,
-    },
-  ]);
+  const contestants: Contestant[] = [];
 
   const handleVote = (id: number) => {
     if (votedFor !== null) return;
-    
     setVotedFor(id);
-    setContestants(prev =>
-      prev.map(contestant =>
-        contestant.id === id
-          ? { ...contestant, votes: contestant.votes + 1 }
-          : contestant
-      )
-    );
-    console.log('Voted for contestant:', id);
   };
 
   return (
@@ -97,16 +49,24 @@ export default function VotingScreen({ onBack }: VotingScreenProps) {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {contestants.map((contestant) => (
-            <ContestantCard
-              key={contestant.id}
-              {...contestant}
-              hasVoted={votedFor === contestant.id}
-              onVote={handleVote}
-            />
-          ))}
-        </div>
+        {contestants.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              No contestants have entered yet. Be the first to enter the contest!
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {contestants.map((contestant) => (
+              <ContestantCard
+                key={contestant.id}
+                {...contestant}
+                hasVoted={votedFor === contestant.id}
+                onVote={handleVote}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

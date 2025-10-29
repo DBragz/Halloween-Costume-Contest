@@ -15,13 +15,7 @@ interface LiveRankingsDashboardProps {
 }
 
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
-  const contestants: Contestant[] = [
-    { id: 1, name: 'Vampire Lord', description: 'Classic vampire with custom fangs and flowing cape', votes: 42 },
-    { id: 2, name: 'Cyberpunk Witch', description: 'Futuristic witch with LED-lit hat and neon accents', votes: 38 },
-    { id: 3, name: 'Steampunk Inventor', description: 'Victorian inventor with working gear mechanisms', votes: 35 },
-    { id: 4, name: 'Zombie Astronaut', description: 'Space explorer turned zombie', votes: 29 },
-    { id: 5, name: 'Ice Queen', description: 'Frozen sorceress with crystalline dress', votes: 27 },
-  ];
+  const contestants: Contestant[] = [];
 
   const sortedContestants = [...contestants].sort((a, b) => b.votes - a.votes);
   const topThree = sortedContestants.slice(0, 3);
@@ -63,12 +57,20 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           </h1>
         </div>
 
-        <div className="flex items-center justify-center gap-2 mb-12">
-          <div className="w-3 h-3 bg-chart-2 rounded-full animate-pulse glow-blue"></div>
-          <p className="text-sm text-muted-foreground">Live updates every 5 seconds</p>
-        </div>
+        {contestants.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground text-lg">
+              No contestants or votes yet. Enter the contest or start voting!
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center justify-center gap-2 mb-12">
+              <div className="w-3 h-3 bg-chart-2 rounded-full animate-pulse glow-blue"></div>
+              <p className="text-sm text-muted-foreground">Live updates every 5 seconds</p>
+            </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {topThree.map((contestant, index) => (
             <Card
               key={contestant.id}
@@ -140,6 +142,8 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
               ))}
             </div>
           </div>
+        )}
+          </>
         )}
       </div>
     </div>
