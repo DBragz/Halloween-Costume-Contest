@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { WagmiProvider } from 'wagmi';
-import { config } from './lib/wagmi';
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Web3Provider, useWeb3 } from "@/contexts/Web3Context";
@@ -14,11 +12,11 @@ import VotingScreen from "@/components/VotingScreen";
 import LiveRankingsDashboard from "@/components/LiveRankingsDashboard";
 import AdminPanel from "@/components/AdminPanel";
 import { Button } from "@/components/ui/button";
-import { Trophy, UserCog, LogOut } from "lucide-react";
+import { Trophy, UserCog } from "lucide-react";
 
 function MainApp() {
   const [, setLocation] = useLocation();
-  const { account, disconnectWallet } = useWeb3();
+  const { account } = useWeb3();
 
   if (!account) {
     return <WelcomeScreen />;
@@ -26,13 +24,13 @@ function MainApp() {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="border-b border-chart-3/30 bg-background sticky top-0 z-50">
+      <nav className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-black to-chart-3 rounded-md flex items-center justify-center glow-orange">
-              <Trophy className="w-6 h-6 text-chart-3" />
+            <div className="w-10 h-10 bg-gradient-to-br from-chart-1 to-chart-3 rounded-md flex items-center justify-center glow-purple">
+              <Trophy className="w-6 h-6 text-background" />
             </div>
-            <h1 className="font-display font-bold text-xl bg-gradient-to-r from-black to-chart-3 bg-clip-text text-transparent">
+            <h1 className="font-display font-bold text-xl text-foreground">
               Halloween Contest
             </h1>
           </div>
@@ -40,35 +38,26 @@ function MainApp() {
             <Button
               onClick={() => setLocation('/rankings')}
               variant="ghost"
-              className="font-display text-chart-3 hover-elevate"
+              className="font-display hover-elevate"
               data-testid="nav-rankings"
             >
-              <Trophy className="w-4 h-4 mr-2 text-chart-3" />
+              <Trophy className="w-4 h-4 mr-2" />
               Rankings
             </Button>
             <Button
               onClick={() => setLocation('/admin')}
               variant="ghost"
-              className="font-display text-chart-3 hover-elevate"
+              className="font-display hover-elevate"
               data-testid="nav-admin"
             >
-              <UserCog className="w-4 h-4 mr-2 text-chart-3" />
+              <UserCog className="w-4 h-4 mr-2" />
               Admin
             </Button>
-            <div className="px-4 py-2 border-2 border-chart-3 bg-chart-3/10 rounded-md glow-orange">
-              <p className="text-sm font-mono text-chart-3">
+            <div className="px-4 py-2 border-2 border-chart-2 bg-chart-2/10 rounded-md glow-blue">
+              <p className="text-sm font-mono text-foreground">
                 {account.slice(0, 6)}...{account.slice(-4)}
               </p>
             </div>
-            <Button
-              onClick={disconnectWallet}
-              variant="ghost"
-              className="font-display text-chart-3 hover-elevate"
-              data-testid="button-logout"
-            >
-              <LogOut className="w-4 h-4 mr-2 text-chart-3" />
-              Logout
-            </Button>
           </div>
         </div>
       </nav>
@@ -105,16 +94,14 @@ function MainApp() {
 
 function App() {
   return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Web3Provider>
-            <MainApp />
-          </Web3Provider>
-          <Toaster />
-        </TooltipProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Web3Provider>
+          <MainApp />
+        </Web3Provider>
+        <Toaster />
+      </TooltipProvider>
+    </QueryClientProvider>
   );
 }
 

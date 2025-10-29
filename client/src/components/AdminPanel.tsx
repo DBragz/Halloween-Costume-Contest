@@ -47,7 +47,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
   if (!isAdmin) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
-        <Card className="p-12 bg-background border-2 border-destructive glow-orange max-w-md">
+        <Card className="p-12 bg-card border-2 border-destructive glow-orange max-w-md">
           <div className="text-center space-y-4">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-destructive/20 border-2 border-destructive rounded-full">
               <Shield className="w-8 h-8 text-destructive" />
@@ -55,7 +55,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             <h2 className="font-display font-bold text-2xl text-destructive">
               Access Denied
             </h2>
-            <p className="text-destructive">
+            <p className="text-muted-foreground">
               Only the admin wallet (dbragz.eth) can access this panel
             </p>
             <Button
@@ -110,26 +110,26 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
         </div>
 
         <div className="grid grid-cols-1 gap-6 mb-8">
-          <Card className="p-6 bg-background border-2 border-chart-1 glow-purple">
-            <h3 className="font-display font-semibold text-lg text-chart-1 mb-4">
+          <Card className="p-6 bg-card border-2 border-card-border">
+            <h3 className="font-display font-semibold text-lg text-foreground mb-4">
               Contest Statistics
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div className="text-center">
                 <p className="text-3xl font-display font-bold text-chart-2">42</p>
-                <p className="text-sm text-chart-2">Total Votes</p>
+                <p className="text-sm text-muted-foreground">Total Votes</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-display font-bold text-chart-3">6</p>
-                <p className="text-sm text-chart-3">Contestants</p>
+                <p className="text-sm text-muted-foreground">Contestants</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-display font-bold text-chart-1">18</p>
-                <p className="text-sm text-chart-1">Voters</p>
+                <p className="text-sm text-muted-foreground">Voters</p>
               </div>
               <div className="text-center">
                 <p className="text-3xl font-display font-bold text-chart-2">42</p>
-                <p className="text-sm text-chart-2">Highest Votes</p>
+                <p className="text-sm text-muted-foreground">Highest Votes</p>
               </div>
             </div>
           </Card>
@@ -140,16 +140,16 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             Admin Actions
           </h2>
 
-          <Card className="p-8 bg-background border-2 border-chart-3 glow-orange">
+          <Card className="p-8 bg-card border-2 border-chart-3 glow-orange">
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
                   <RotateCcw className="w-6 h-6 text-chart-3" />
-                  <h3 className="font-display font-semibold text-xl text-chart-3">
+                  <h3 className="font-display font-semibold text-xl text-foreground">
                     Wipe All Votes
                   </h3>
                 </div>
-                <p className="text-chart-3 mb-4">
+                <p className="text-muted-foreground mb-4">
                   Reset all vote counts to zero while keeping contestants in the system.
                   This action cannot be undone.
                 </p>
@@ -165,16 +165,16 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
             </div>
           </Card>
 
-          <Card className="p-8 bg-background border-2 border-destructive">
+          <Card className="p-8 bg-card border-2 border-destructive">
             <div className="flex items-start justify-between gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-3">
                   <Trash2 className="w-6 h-6 text-destructive" />
-                  <h3 className="font-display font-semibold text-xl text-destructive">
+                  <h3 className="font-display font-semibold text-xl text-foreground">
                     Delete All Contestants
                   </h3>
                 </div>
-                <p className="text-destructive mb-4">
+                <p className="text-muted-foreground mb-4">
                   Permanently remove all contestants and their associated data from the system.
                   This action cannot be undone.
                 </p>
@@ -193,7 +193,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       </div>
 
       <AlertDialog open={showWipeVotesDialog} onOpenChange={setShowWipeVotesDialog}>
-        <AlertDialogContent className="bg-background border-2 border-chart-3 glow-orange">
+        <AlertDialogContent className="bg-card border-2 border-chart-3 glow-orange">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
               <AlertTriangle className="w-6 h-6 text-chart-3" />
@@ -221,7 +221,7 @@ export default function AdminPanel({ onBack }: AdminPanelProps) {
       </AlertDialog>
 
       <AlertDialog open={showDeleteContestantsDialog} onOpenChange={setShowDeleteContestantsDialog}>
-        <AlertDialogContent className="bg-background border-2 border-destructive">
+        <AlertDialogContent className="bg-card border-2 border-destructive">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-display text-2xl flex items-center gap-3">
               <AlertTriangle className="w-6 h-6 text-destructive" />

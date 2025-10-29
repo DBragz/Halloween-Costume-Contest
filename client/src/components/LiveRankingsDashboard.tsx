@@ -42,9 +42,9 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
 
   const getPodiumColors = (position: number) => {
     switch (position) {
-      case 0: return 'border-chart-3 bg-background text-chart-3 glow-orange-intense';
-      case 1: return 'border-chart-2 bg-background text-chart-2 glow-blue-intense';
-      case 2: return 'border-chart-1 bg-background text-chart-1 glow-purple-intense';
+      case 0: return 'border-chart-3 bg-chart-3/10 text-chart-3 glow-orange-intense';
+      case 1: return 'border-chart-2 bg-chart-2/10 text-chart-2 glow-blue-intense';
+      case 2: return 'border-chart-1 bg-chart-1/10 text-chart-1 glow-purple-intense';
       default: return '';
     }
   };
@@ -98,10 +98,10 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
                   <Badge className="mb-2 font-display" data-testid={`badge-position-${index + 1}`}>
                     {index === 0 ? '1st' : index === 1 ? '2nd' : '3rd'} Place
                   </Badge>
-                  <h2 className="font-display font-bold text-2xl mb-2">
+                  <h2 className="font-display font-bold text-2xl text-foreground mb-2">
                     {contestant.name}
                   </h2>
-                  <p className="text-sm mb-4">
+                  <p className="text-sm text-muted-foreground mb-4">
                     {contestant.description}
                   </p>
                   <div className="pt-4 border-t border-current/20">
@@ -125,20 +125,20 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
               {remaining.map((contestant, index) => (
                 <Card
                   key={contestant.id}
-                  className="p-6 bg-background border-2 border-chart-2 glow-blue flex items-center justify-between hover-elevate"
+                  className="p-6 bg-card border-2 border-card-border flex items-center justify-between hover-elevate"
                   data-testid={`card-contestant-${contestant.id}`}
                 >
                   <div className="flex items-center gap-6">
-                    <div className="w-12 h-12 bg-chart-2/20 border-2 border-chart-2 rounded-full flex items-center justify-center">
-                      <span className="font-display font-bold text-xl text-chart-2">
+                    <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
+                      <span className="font-display font-bold text-xl text-muted-foreground">
                         {index + 4}
                       </span>
                     </div>
                     <div>
-                      <h3 className="font-display font-semibold text-lg text-chart-2">
+                      <h3 className="font-display font-semibold text-lg text-foreground">
                         {contestant.name}
                       </h3>
-                      <p className="text-sm text-chart-2">
+                      <p className="text-sm text-muted-foreground">
                         {contestant.description}
                       </p>
                     </div>
@@ -147,7 +147,7 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
                     <p className="text-3xl font-display font-bold text-chart-2" data-testid={`text-votes-${contestant.id}`}>
                       {contestant.votes}
                     </p>
-                    <p className="text-xs text-chart-2">Votes</p>
+                    <p className="text-xs text-muted-foreground">Votes</p>
                   </div>
                 </Card>
               ))}

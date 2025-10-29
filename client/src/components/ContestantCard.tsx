@@ -15,20 +15,20 @@ interface ContestantCardProps {
 export default function ContestantCard({ id, name, description, votes, hasVoted, onVote }: ContestantCardProps) {
   return (
     <Card
-      className={`p-6 bg-background border-2 transition-all ${
+      className={`p-6 bg-card border-2 transition-all ${
         hasVoted
           ? 'border-chart-1 glow-purple opacity-90'
-          : 'border-chart-2 glow-blue hover-elevate'
+          : 'border-card-border hover-elevate'
       }`}
       data-testid={`card-contestant-${id}`}
     >
       <div className="space-y-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
-            <h3 className="font-display font-semibold text-xl text-chart-2 mb-2">
+            <h3 className="font-display font-semibold text-xl text-foreground mb-2">
               {name}
             </h3>
-            <p className="text-chart-2 text-sm line-clamp-3">
+            <p className="text-muted-foreground text-sm line-clamp-3">
               {description}
             </p>
           </div>
@@ -40,12 +40,12 @@ export default function ContestantCard({ id, name, description, votes, hasVoted,
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-chart-2/30">
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <div className="text-center">
             <p className="text-3xl font-display font-bold text-chart-2 text-glow-blue" data-testid={`text-votes-${id}`}>
               {votes}
             </p>
-            <p className="text-xs text-chart-2">Votes</p>
+            <p className="text-xs text-muted-foreground">Votes</p>
           </div>
 
           <Button
