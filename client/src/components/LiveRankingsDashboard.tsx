@@ -10,8 +10,8 @@ interface LiveRankingsDashboardProps {
 }
 
 export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardProps) {
-  const { data: contestants = [], isLoading } = useQuery<Contestant[]>({
-    queryKey: ['/api/contestants'],
+  const { data: contestants = [], isLoading, isError } = useQuery<Contestant[]>({
+    queryKey: ['/api', 'contestants'],
     refetchInterval: 5000,
   });
 
@@ -59,6 +59,12 @@ export default function LiveRankingsDashboard({ onBack }: LiveRankingsDashboardP
           <div className="text-center py-12">
             <p className="text-muted-foreground text-lg">
               Loading rankings...
+            </p>
+          </div>
+        ) : isError ? (
+          <div className="text-center py-12">
+            <p className="text-destructive text-lg">
+              Failed to load rankings. Please try again later.
             </p>
           </div>
         ) : contestants.length === 0 ? (
